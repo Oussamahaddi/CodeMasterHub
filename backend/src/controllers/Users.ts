@@ -1,18 +1,34 @@
 import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
-
-type User = {
-  email : string
-  password : string
-}
+import { LoginType, RegisterType, UserModelTypes } from "../types/Types";
+import { UserModel } from "../models/User";
+import { generateToken } from "../utils/generateToken";
+import bcrypt from "bcrypt";
 
 export const login = asyncHandler(async (req : Request, res : Response) => {
-  console.log(req.body)
-  const {email, password} : User = req.body
-  if (!email || !password) {
-    throw new Error("email or password missing!!");
-  }
-  res.status(201).json("You are logged in !");
+  const {email, password} : LoginType = req.body
+  const user : UserModelTypes | null = await UserModel.findOne({email : email});
+  if (!user) throw new Error("User Not Found!!");
+  const comparePwd = await bcrypt.compare(password, user.password);
+  if (!comparePwd) throw new Error("Password incorrect!!");
+  const token = generateToken(user.id!, user.role);
+  res.status(201).json({user, token});
 })
 
-// tana baghi benifice tana baghi villa f jarda canabise tana baghi mohami nfis baghi baghi
+export const register = asyncHandler(async (req : Request, res : Response) => {
+  const {email, password, address, firstName, lastName, phoneNumber, role } : RegisterType = req.body
+  const data : UserModelTypes = {
+    email,
+    password,
+    address,
+    fullName : `${firstName} ${lastName}`,
+    phoneNumber,
+    role
+  }
+  const user = new UserModel(data);
+  const error = user.validateSync();
+  if (error) throw new Error(error.message);
+  await user.save();
+  const token = generateToken(user.id!, role)
+  res.status(201).json({user, token});
+})
