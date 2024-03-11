@@ -1,6 +1,7 @@
 import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
 import React, { useEffect } from 'react'
 import { FaRegPlayCircle } from "react-icons/fa";
+import Button from '../Partials/Button';
 
 const Carousel = () => {
   const count = useMotionValue(0)
@@ -28,27 +29,64 @@ const Carousel = () => {
             Some of the free certificates earned by the Class ... 
           </p>
           <div className='flex gap-8 items-center'>
-            <button className='rounded-full hover:shadow-[0px_2px_5px_0px_#FC72FF] shadow-[0px_2px_5px_0px_rgba(0,0,0,.3)] bg-gradient-to-t from-[#FC72FF] to-[#B873FF] text-white px-8 py-1 font-semibold hover:transition-all hover:duration-200 hover:bg-gradient-to-r hover:from-[#B873FF] hover:to-[#FC72FF] hover:text-white hover:border-[#FC72FF]'>
-              Join Now
-            </button>
+            <Button btnTitle='Join Now' />
             <button className='underline text-[#B873FF] font-semibold text-lg flex items-center gap-2 [text-shadow:_2px_2px_2px_rgb(0_0_0_/_20%)] hover:text-[#FC72FF]'>
               <FaRegPlayCircle className='' />
               How it work ?
             </button>
           </div>
-          <div className='flex items-center gap-6'>
-            <div className=''>
+          <div className='flex items-center justify-start'>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.3,
+                ease: [0, 0.71, 0.2, 1.01],
+                scale: {
+                  type: "spring",
+                  damping: 8,
+                  stiffness: 100,
+                  restDelta: 0.001
+                }
+              }}
+            >
               <motion.div className='text-[#00D8FF] font-bold text-2xl'>{animations.courses}</motion.div>
               <p className='w-4/6 font-semibold '>Courses to choose from</p>
-            </div>
-            <div className=''>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.3,
+                ease: [0, 0.71, 0.2, 1.01],
+                scale: {
+                  type: "spring",
+                  damping: 6,
+                  stiffness: 100,
+                  restDelta: 0.001
+                }
+              }}
+            >
               <motion.div className='text-[#B873FF] font-bold text-2xl'>{animations.students}</motion.div>
               <p className='w-4/6 font-semibold '>Students trained </p>
-            </div>
-            <div className=''>
+            </motion.div>
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.3,
+                ease: [0, 0.71, 0.2, 1.01],
+                scale: {
+                  type: "spring",
+                  damping: 4,
+                  stiffness: 100,
+                  restDelta: 0.001
+                }
+              }}
+            >
               <motion.div className='text-[#F0C932] font-bold text-2xl'>{animations.professors}</motion.div>
               <p className='w-4/6 font-semibold '>Professional trainer</p>
-            </div>
+            </motion.div>
           </div>
         </div>
         <motion.div 
