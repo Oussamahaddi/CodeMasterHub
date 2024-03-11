@@ -4,7 +4,7 @@ import PathConstant from '../../routes/PathConstant'
 
 const Header = () => {
   return (
-    <header className='w-full flex justify-center py-4 sticky top-0'>
+    <header className='w-full flex justify-center py-4 sticky top-0 z-10 bg-white'>
       <nav className="flex justify-between w-11/12 items-center">
         <div>
           <Link to={PathConstant.HOME}>

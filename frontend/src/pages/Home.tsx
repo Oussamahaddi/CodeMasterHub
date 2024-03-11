@@ -2,6 +2,7 @@ import React from 'react'
 import Carousel from '../components/HomePage/Carousel'
 import TechnologieSlide from '../components/HomePage/TechnologieSlide'
 import SearchCourses from '../components/HomePage/SearchCourses'
+import Benifits from '../components/HomePage/Benifits'
 
 const Home = () => {
   return (
@@ -10,6 +11,7 @@ const Home = () => {
         <Carousel />
         <TechnologieSlide />
         <SearchCourses />
+        <Benifits />
       </div>
     </>
   )
