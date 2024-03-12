@@ -3,7 +3,7 @@ import { FaRegUser } from "react-icons/fa6";
 
 const SingleCourse = () => {
   return (
-    <div className='bg-white rounded-2xl py-2 px-3 flex flex-col gap-4 w-5/6 my-4 mx-auto'>
+    <div className='bg-white rounded-2xl py-2 px-3 flex flex-col gap-4 w-5/6 my-4 mx-auto shadow-md'>
       <div>
         <img src="assets/courses/course1.png" alt="" />
       </div>
