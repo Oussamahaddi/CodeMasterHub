@@ -1,41 +1,35 @@
-import React, { useState } from 'react'
 import InputCustomized from '../../components/Form/InputCustomized'
 import Button from '../../components/Partials/Button'
 import { FaCircleArrowRight } from "react-icons/fa6";
 import { LoginInputType, UserT } from '../../types/Types';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useLocation } from 'react-router-dom';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from 'yup'
 import { useAppDispatch, useAppSelector } from '../../hook';
 import { switchForm } from '../../features/Courses/authSlice';
-
-const loginSchema = yup.object({
-  email : yup.string().email().required(),
-  password : yup.string().min(6).max(20).required(),
-})
-const registerSchema = yup.object({
-  firstname : yup.string().required(),
-  lastname : yup.string().required(),
-  email : yup.string().email().required(),
-  password : yup.string().min(6).max(20).required(),
-  confirmpassword : yup.string().required(),
-})
 
 const Login = () => {
 
   const {auth} = useAppSelector(state => state.authentification)
   const dispatch = useAppDispatch();
 
+  const registerSchema = yup.object({
+    firstname : auth ? yup.string().required() : yup.string(),
+    lastname : auth ? yup.string().required() : yup.string(),
+    email : yup.string().email().required(),
+    password : yup.string().min(6).max(20).required(),
+    confirmpassword : auth ? yup.string().required() : yup.string(),
+  })
+
   const {
     handleSubmit,
     register,
     formState : {errors},
-  } = useForm<UserT>({
+  } = useForm<UserT | LoginInputType>({
     resolver : yupResolver(registerSchema),
   })
 
-  const onSubmit : SubmitHandler<UserT> = (data) => console.log(data);
+  const onSubmit : SubmitHandler<UserT | LoginInputType> = (data) => console.log(data);
   
 
   return (
@@ -67,7 +61,7 @@ const Login = () => {
                     type='text'
                     label='lastname'
                     register={register}
-                    errors={errors.lastname!}
+                    errors={errors.lastname}
                     required
                   />
                 </div>

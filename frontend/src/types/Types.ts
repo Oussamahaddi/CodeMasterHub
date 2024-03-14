@@ -8,4 +8,10 @@ export type UserT = {
   confirmpassword : string
 }
 
-export type LoginInputType = Pick<UserT, "email" | "password">
+export type LoginInputType = {
+  firstname? : string
+  lastname? : string
+  email : string
+  password : string
+  confirmpassword? : string
+}

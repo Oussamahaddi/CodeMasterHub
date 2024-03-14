@@ -6,7 +6,7 @@ interface Props {
   type : string
   label : Path<UserT>
   placeholder: string
-  register : UseFormRegister<UserT>
+  register : UseFormRegister<UserT | LoginInputType>
   required?: boolean
   errors?: FieldError
 }

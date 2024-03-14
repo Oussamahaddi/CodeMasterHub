@@ -12,11 +12,18 @@ const authSlice = createSlice({
   name : 'authentification',
   initialState,
   reducers : {
+    register : (state, actions : PayloadAction) => {
+      state.auth = true
+    },
+    login : (state, actions : PayloadAction) => {
+      state.auth = false
+    },
     switchForm : (state, actions : PayloadAction) => {
       state.auth = !state.auth
-    }
+    },
+    
   }
 })
 
-export const { switchForm } = authSlice.actions
+export const { login, register, switchForm } = authSlice.actions
 export default authSlice.reducer;
