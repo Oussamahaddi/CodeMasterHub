@@ -1,10 +1,13 @@
 import { Suspense } from "react"
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 import LoadingSpin from "../LoadingSpin"
 import Header from "../Partials/Header"
 import Footer from "../Partials/Footer"
+import PathConstant from "../../routes/PathConstant"
 
 const Layout = () => {
+  let location = useLocation();
+  
   return (
     <div>
       <Header />
@@ -13,7 +16,7 @@ const Layout = () => {
           <Outlet />
         </Suspense>
       </main>
-      <Footer />
+      { !(location.pathname === PathConstant.Auth) &&  <Footer />}
     </div>
   )
 }

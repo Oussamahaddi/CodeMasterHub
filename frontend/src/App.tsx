@@ -3,6 +3,8 @@ import routes from "./routes";
 import PathConstant from "./routes/PathConstant";
 import Page404 from "./pages/Page404";
 import Layout from "./components/Layout";
+import { Provider } from "react-redux";
+import store from "./redux/Store";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -14,7 +16,9 @@ const App = () => {
     }
   ])
   return (
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   );
 }
 

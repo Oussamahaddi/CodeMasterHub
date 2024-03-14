@@ -22,7 +22,16 @@ const Carousel = () => {
   return (
     <div className='flex justify-center my-10'>
       <div className='w-11/12 flex justify-around items-center gap-2'>
-        <div className='flex flex-col gap-6 w-full'>
+        <motion.div 
+          variants={{
+            hidden : {opacity : 0, y : 75},
+            visible : {opacity : 1, y : 0},
+          }}
+          initial="hidden"
+          animate="visible"
+          transition={{duration : 0.4}}
+          className='flex flex-col gap-6 w-full'
+        >
           <h1 className='font-bold text-6xl'>Learn New Skill<br/> Everyday, Anytime, <br /> and Anywhere.</h1>
           <p className='text-gray-600 w-4/6'>
             1000+ Courses In total, the platforms below offer over 1000 free certificate courses for learning software development.
@@ -88,7 +97,7 @@ const Carousel = () => {
               <p className='w-4/6 font-semibold '>Professional trainer</p>
             </motion.div>
           </div>
-        </div>
+        </motion.div>
         <motion.div 
           initial={{ x: -50 }}
           animate={{ x: 0 }}
