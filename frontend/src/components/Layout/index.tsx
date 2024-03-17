@@ -16,7 +16,7 @@ const Layout = () => {
           <Outlet />
         </Suspense>
       </main>
-      { !(location.pathname === PathConstant.Auth) &&  <Footer />}
+      { !(location.pathname === PathConstant.AUTH) &&  <Footer />}
     </div>
   )
 }
