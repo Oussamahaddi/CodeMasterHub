@@ -1,6 +1,7 @@
 import React from 'react'
 import Course from '../components/Courses/Course'
 import { NavLink } from 'react-router-dom'
+import PathConstant from '../routes/PathConstant'
 
 const Courses = () => {
   return (
@@ -14,10 +15,10 @@ const Courses = () => {
           </select>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-10 justify-between'>
-          <NavLink to="">
+          <NavLink to={`${PathConstant.COURSES}/1`}>
             <Course />
           </NavLink>
-          <NavLink to="">
+          <NavLink to={`${PathConstant.COURSES}/2`}>
             <Course />
           </NavLink>
         </div>

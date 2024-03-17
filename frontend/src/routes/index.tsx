@@ -3,6 +3,7 @@ import PathConstant from "./PathConstant";
 
 const Home = lazy(() => import("../pages/Home"))
 const Courses = lazy(() => import("../pages/Courses"))
+const CourseDetails = lazy(() => import("../pages/CourseDetails"))
 const Auth = lazy(() => import("../pages/Auth/Auth"))
 
 interface RouterTypeT {
@@ -18,6 +19,10 @@ const routes : RouterTypeT[] = [
   {
     path : PathConstant.COURSES,
     element : <Courses />,
+  },
+  {
+    path : `${PathConstant.COURSES}/:id`,
+    element : <CourseDetails />,
   },
   {
     path : PathConstant.AUTH,
