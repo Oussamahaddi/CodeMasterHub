@@ -3,6 +3,7 @@ import PathConstant from "./PathConstant";
 
 const Home = lazy(() => import("../pages/Home"))
 const Courses = lazy(() => import("../pages/Courses"))
+const Pricing = lazy(() => import("../pages/Pricing"))
 const CourseDetails = lazy(() => import("../pages/CourseDetails"))
 const Auth = lazy(() => import("../pages/Auth/Auth"))
 
@@ -27,6 +28,10 @@ const routes : RouterTypeT[] = [
   {
     path : PathConstant.AUTH,
     element : <Auth />
+  },
+  {
+    path : PathConstant.PRICING,
+    element : <Pricing />
   }
 ]
 

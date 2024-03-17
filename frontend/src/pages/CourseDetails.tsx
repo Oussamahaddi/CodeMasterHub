@@ -35,15 +35,15 @@ const CourseDetails = () => {
             <p className='w-5/6 text-white'>
               Learn to bake accessibility into your development process and culture. Understand UI accessibility, 
               ARIA, focus management, and how to test for accessible web apps. Through hands-on exercises, you'll 
-              tackle optimizing components for screen readers and keyboards, utilizing semantic HTML, and understanding 
-              JavaScript's impact on accessibility. Foster an accessibility-focused culture within your development teams, 
+              tackle optimizing components for screen readers and keyboards, utilizing semantic HTML, and understanding
               equipping you with the knowledge to build inclusive web applications!
+              <br /><br />
               This course and others like it are available as part of our Frontend Masters video subscription.
             </p>
             <p className={`text-[${GRAY}]`}>Published : February 27, 2024</p>
             {
               true ?
-              <button className='flex items-center justify-center gap-4 rounded-full bg-red-400 py-4 shadow-[0px_2px_5px_0px_rgba(0,0,0,.3)] text-white px-8 font-semibold hover:text-white hover:bg-red-300 hover:text-black transition-all duration-100 ease-linear'>
+              <button className='flex items-center justify-center gap-4 rounded-full bg-red-400 py-4 shadow-[0px_2px_5px_0px_rgba(0,0,0,.3)] text-white px-8 font-semibold hover:bg-red-300 hover:text-black transition-all duration-100 ease-linear'>
                 <FaRegPlayCircle className='text-xl'/>
                 Start Course
               </button>
