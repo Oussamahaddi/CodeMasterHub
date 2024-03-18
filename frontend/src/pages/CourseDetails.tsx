@@ -3,9 +3,12 @@ import { BACKGROUNDGRADIENT, DARKPURPLE, GRAY } from '../styles/Color'
 import ReactPlayer from 'react-player'
 import Button from '../components/Partials/Button'
 import { FaRegPlayCircle } from "react-icons/fa";
+import { NavLink, useParams } from 'react-router-dom';
+import PathConstant from '../routes/PathConstant';
 
 
 const CourseDetails = () => {
+  const param = useParams();
   return (
     <div className='w-full'>
       <div className='w-10/12 mx-auto my-14'>
@@ -40,13 +43,13 @@ const CourseDetails = () => {
               <br /><br />
               This course and others like it are available as part of our Frontend Masters video subscription.
             </p>
-            <p className={`text-[${GRAY}]`}>Published : February 27, 2024</p>
+            <p className={`text-[#ccc]`}>Published : February 27, 2024</p>
             {
               true ?
-              <button className='flex items-center justify-center gap-4 rounded-full bg-red-400 py-4 shadow-[0px_2px_5px_0px_rgba(0,0,0,.3)] text-white px-8 font-semibold hover:bg-red-300 hover:text-black transition-all duration-100 ease-linear'>
+              <NavLink to={`${PathConstant.COURSES}/${param.id}/playlist`} className='flex items-center justify-center gap-4 rounded-full bg-black py-4 shadow-[0px_2px_5px_0px_rgba(255,255,255,.3)] text-white px-8 font-semibold hover:bg-gray-900 hover:text-white transition-all duration-100 ease-linear'>
                 <FaRegPlayCircle className='text-xl'/>
                 Start Course
-              </button>
+              </NavLink>
               :
               <Button 
                 btnTitle='Get Illimited Access'
