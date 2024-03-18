@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import PathConstant from '../../routes/PathConstant'
 import { useAppDispatch } from '../../hook'
-import { login, register } from '../../features/Courses/authSlice'
+import { login, register } from '../../features/Authentification/authSlice'
 
 const routes = [
   {

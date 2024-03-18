@@ -1,7 +1,20 @@
-import ReactPlayer from "react-player"
 import { FaTrash } from "react-icons/fa6";
+import CustomizedModal from "../CustomizedModal";
+import { PlaylistT } from "../../types/Types";
+import { useAppDispatch, useAppSelector } from "../../hook";
+import { selectPlaylist, showModal } from "../../features/Playlist/PlaylistSlice";
 
 const BasicTable = () => {
+
+  const { modalVisibility, playlists, selectedPlaylist } = useAppSelector(state => state.playlist)
+  const dispatch = useAppDispatch();
+
+  const handleSelectPlaylit = (playlist : PlaylistT) => {
+    dispatch(selectPlaylist(playlist));
+    dispatch(showModal());
+  }
+
+  console.log(playlists)
 
   return (
     <>
@@ -24,58 +37,51 @@ const BasicTable = () => {
                     DATE
                   </th>
                   <th scope="col" className="px-6 py-3">
+                    Technologie
+                  </th>
+                  <th scope="col" className="px-6 py-3">
                     Action
                   </th>
                 </tr>
               </thead>
               <tbody className="">
-                <tr className="border-b border-[#a7abb2] hover:bg-[#e9e9e9]">
-                  <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap flex items-center ">
-                    <ReactPlayer url={'/assets/videos/video.mp4'} width={'100px'} height={'70px'}  light style={{background : 'black'}}/>
-                    <div className="ps-3">
-                      <div className="text-base font-semibold">Video title </div>
-                      <div className="font-normal text-gray-500 break-word">video description that has anything that instructor wanna tell to the students for example</div>
-                    </div>
-                  </th>
-                  <td className="px-6 py-4">
-                    24
-                  </td>
-                  <td className="px-6 py-4">
-                    2020-11-23
-                  </td>
-                  <td className="px-6 gap-6">
-                    {/* <button className="text-green-500">Edit</button> */}
-                    <button className="text-red-500 flex items-center gap-2">
-                      <FaTrash /> Delete
-                    </button>
-                  </td>
-                </tr>
-                <tr className="border-b border-[#a7abb2] hover:bg-[#e9e9e9]">
-                  <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap flex items-center ">
-                    <ReactPlayer url={'/assets/videos/video.mp4'} width={'100px'} height={'70px'}  light style={{background : 'black'}}/>
-                    <div className="ps-3">
-                      <div className="text-base font-semibold">Video title </div>
-                      <div className="font-normal text-gray-500 break-word">video description that has anything that instructor wanna tell to the students for example</div>
-                    </div>
-                  </th>
-                  <td className="px-6 py-4">
-                    24
-                  </td>
-                  <td className="px-6 py-4">
-                    2020-11-23
-                  </td>
-                  <td className="px-6 gap-6">
-                    {/* <button className="text-green-500">Edit</button> */}
-                    <button className="text-red-500 flex items-center gap-2">
-                      <FaTrash /> Delete
-                    </button>
-                  </td>
-                </tr>
+                {
+                  playlists && playlists?.map((playlist) => (
+                    <tr onClick={() => handleSelectPlaylit(playlist)} key={playlist.id} className="border-b border-[#a7abb2] hover:bg-[#e9e9e9]">
+                      <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap flex items-center ">
+                        <img src={playlist.img} alt="" className="w-20 aspect-square object-contain" />
+                        <div className="ps-3">
+                          <div className="text-base font-semibold">{playlist.title}</div>
+                          <div className="font-normal text-gray-500 break-word">{playlist.description}</div>
+                        </div>
+                      </th>
+                      <td className="px-6 py-4">
+                        {playlist.videos.length}
+                      </td>
+                      <td className="px-6 py-4">
+                        {playlist.date}
+                      </td>
+                      <td className="px-6 py-4 font-semibold">
+                        {playlist.technologie}
+                      </td>
+                      <td className="px-6 gap-6">
+                        {/* <button className="text-green-500">Edit</button> */}
+                        <button className="text-red-500 flex items-center gap-2">
+                          <FaTrash /> Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                }
               </tbody>
             </table>
           </div>
         </div>
       </div>
+      <CustomizedModal
+        isOpen={modalVisibility}
+        playlist={selectedPlaylist!}
+      />
     </>
   )
 }

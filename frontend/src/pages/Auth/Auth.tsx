@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from 'yup'
 import { useAppDispatch, useAppSelector } from '../../hook';
-import { switchForm } from '../../features/Courses/authSlice';
+import { switchForm } from '../../features/Authentification/authSlice';
 
 const Login = () => {
 
