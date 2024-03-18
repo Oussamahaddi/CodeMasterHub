@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player'
 import { NavLink } from 'react-router-dom'
 import PathConstant from '../routes/PathConstant'
 
-const arr = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+const arr = [1,2,3,4,5,6,7,8,9,10]
 
 const Playlist = () => {
   return (
@@ -18,14 +18,14 @@ const Playlist = () => {
           {
             arr.map((video, index) => (
               <div className='flex items-center gap-2 px-2 transition-all bg-white duration-100 ease-linear hover:bg-[#B873FF] hover:text-white'>
-                <ReactPlayer url={"/assets/videos/video.mp4"} width={100} height={80}/>
+                <ReactPlayer url={"/assets/videos/video.mp4"} width={100} height={80} pip/>
                 <p>Title of this video</p>
               </div>
             ))
           }
         </div>
         <div className='w-full'>
-          <ReactPlayer url={"/assets/videos/video.mp4"} width={'100%'} height={'100%'} controls/>
+          <ReactPlayer url={"/assets/videos/video.mp4"} width={'100%'} height={'100%'} controls />
         </div>
       </div>
     </div>

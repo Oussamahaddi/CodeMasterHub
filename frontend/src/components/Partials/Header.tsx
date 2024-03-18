@@ -18,8 +18,8 @@ const routes = [
     path : "/pricing"
   },
   {
-    name : "Contact",
-    path : "/contact"
+    name : "Dashboard",
+    path : "/dashboard"
   },
 ]
 

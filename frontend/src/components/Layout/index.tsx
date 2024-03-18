@@ -8,18 +8,16 @@ import PathConstant from "../../routes/PathConstant"
 const Layout = () => {
   let location = useLocation();
   let param = useParams()
-  console.log(param.id);
-  
-  
+
   return (
     <div>
-      {location.pathname !== `${PathConstant.COURSES}/${param.id}/playlist` && <Header />}
+      {!(location.pathname === `${PathConstant.COURSES}/${param.id}/playlist` || location.pathname === PathConstant.DASHBOARD) && <Header />}
       <main>
         <Suspense fallback={<LoadingSpin />}>
           <Outlet />
         </Suspense>
       </main>
-      { !(location.pathname === PathConstant.AUTH || location.pathname === `${PathConstant.COURSES}/${param.id}/playlist`)  &&  <Footer />}
+      {!(location.pathname === PathConstant.AUTH || location.pathname === `${PathConstant.COURSES}/${param.id}/playlist` || location.pathname === PathConstant.DASHBOARD) && <Footer />}
     </div>
   )
 }
