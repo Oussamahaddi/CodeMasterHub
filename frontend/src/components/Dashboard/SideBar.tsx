@@ -1,8 +1,8 @@
 import { FaHome } from "react-icons/fa";
-import { IoIosStats } from "react-icons/io";
 import { CiLogout } from "react-icons/ci";
 import { Link } from 'react-router-dom';
 import { DARKPURPLE } from "../../styles/Color";
+import { CgPlayList } from "react-icons/cg";
 
 const SideBar = () => {
 
@@ -12,17 +12,9 @@ const SideBar = () => {
         <img src="/assets/logo.png" alt="" className='w-24 my-4'/>
         <hr className='w-full ' />
         <div className='flex flex-col gap-4 w-full'>
-          <div className={`p-2 rounded flex items-center gap-2 hover:bg-[${DARKPURPLE}] hover:text-white`}>
-            <div className='p-2 rounded'>
-              <FaHome />
-            </div>
-            <Link to="">Dashboard</Link>
-          </div>
-          <div className={`p-2 rounded flex items-center gap-2 hover:bg-[${DARKPURPLE}] hover:text-white`}>
-            <div className={`p-2 rounded`}>
-              <IoIosStats />
-            </div>
-            <Link to="">Tables</Link>
+          <div className={`cursor-pointer p-2 rounded flex items-center gap-2 hover:bg-[${DARKPURPLE}] hover:text-white`}>
+            <CgPlayList className="text-2xl"/>
+            Playlists
           </div>
         </div>
       </div>

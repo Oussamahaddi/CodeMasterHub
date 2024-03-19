@@ -5,6 +5,7 @@ interface InitialState {
   playlists : PlaylistT[]
   selectedPlaylist : PlaylistT | null
   modalVisibility : boolean
+  formType : "ADD" | "UPDATE"
 }
 
 const initialState : InitialState = {
@@ -44,20 +45,29 @@ const initialState : InitialState = {
   ],
   modalVisibility : false,
   selectedPlaylist : null,
+  formType : "ADD"
 }
 
 const playlistSlice = createSlice({
   name : 'playlist',
   initialState,
   reducers : {
-    showModal : (state, actions : PayloadAction) => {
+    closeModal : (state, actions : PayloadAction) => {
       state.modalVisibility = !state.modalVisibility
     },
     selectPlaylist : (state, actions : PayloadAction<PlaylistT>) => {
       state.selectedPlaylist = actions.payload;
     },
+    updatePlaylit : (state, actions : PayloadAction) => {
+      state.formType = "UPDATE"
+      state.modalVisibility = !state.modalVisibility
+    },
+    addPlaylist : (state, actions : PayloadAction) => {
+      state.formType = "ADD"
+      state.modalVisibility = !state.modalVisibility
+    }
   }
 })
 
-export const { selectPlaylist , showModal} = playlistSlice.actions;
+export const { selectPlaylist, addPlaylist, updatePlaylit, closeModal} = playlistSlice.actions;
 export default playlistSlice.reducer;

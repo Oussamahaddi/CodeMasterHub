@@ -2,16 +2,16 @@ import { FaTrash } from "react-icons/fa6";
 import CustomizedModal from "../CustomizedModal";
 import { PlaylistT } from "../../types/Types";
 import { useAppDispatch, useAppSelector } from "../../hook";
-import { selectPlaylist, showModal } from "../../features/Playlist/PlaylistSlice";
+import { selectPlaylist, updatePlaylit } from "../../features/Playlist/PlaylistSlice";
 
 const BasicTable = () => {
 
-  const { modalVisibility, playlists, selectedPlaylist } = useAppSelector(state => state.playlist)
+  const { modalVisibility, playlists, selectedPlaylist, formType } = useAppSelector(state => state.playlist)
   const dispatch = useAppDispatch();
 
   const handleSelectPlaylit = (playlist : PlaylistT) => {
+    dispatch(updatePlaylit());
     dispatch(selectPlaylist(playlist));
-    dispatch(showModal());
   }
 
   return (
@@ -77,6 +77,7 @@ const BasicTable = () => {
       <CustomizedModal
         isOpen={modalVisibility}
         playlist={selectedPlaylist!}
+        formType={formType}
       />
     </>
   )

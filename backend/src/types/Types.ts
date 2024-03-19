@@ -21,6 +21,12 @@ export interface StudentType extends UserModelTypes {
   
 }
 
+export type CourseType = {
+  title : string
+  description : string
+  videos : []
+}
+
 export type LoginType = Pick<UserModelTypes, "email" | "password">
 
 export type RegisterType = Omit<UserModelTypes,"fullName" | "id"> & {

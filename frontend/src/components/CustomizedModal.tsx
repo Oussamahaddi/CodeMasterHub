@@ -1,65 +1,109 @@
 import React from 'react'
 import Modal from "react-modal"
-import { PlaylistT } from '../types/Types'
+import { PlaylistT, VideoT } from '../types/Types'
 import { IoMdClose } from 'react-icons/io'
-import { showModal } from '../features/Playlist/PlaylistSlice'
+import { closeModal } from '../features/Playlist/PlaylistSlice'
 import { useAppDispatch } from '../hook'
 import ReactPlayer from 'react-player'
 import { DARKPURPLE, LIGHTPURPLE } from '../styles/Color'
 import { FaTrash } from 'react-icons/fa'
 import Button from './Partials/Button'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { IoCloudUploadSharp } from "react-icons/io5";
 
 interface Props {
   isOpen : boolean
   playlist : PlaylistT
+  formType : "ADD" | "UPDATE"
 }
 
 interface FormInputT {
   title : string
   description : string
+  playlistImage : any
+  videos : any
 }
 
 const customStyle = {
-  width : '500px',
-  hight : '400px'
-}
+  content : {
+    width : '800px',
+    margin : '0px auto'
+  }
+} 
 
-const CustomizedModal = ({isOpen, playlist} : Props) => {
+const CustomizedModal = ({isOpen, playlist, formType} : Props) => {
 
   const dispatch = useAppDispatch();
   const {
     handleSubmit,
     register,
+    reset,
     formState : {errors}
   } = useForm<FormInputT>()
 
-  const onSubmit : SubmitHandler<FormInputT> = (data) => console.log(data)
+  const onSubmit : SubmitHandler<FormInputT> = (data) => {
+    const file = data.videos
+    console.log(file);
+  }
 
   return (
     <Modal
       isOpen={isOpen}
+      ariaHideApp={false}
+      onAfterClose={reset}
+      style={formType === 'ADD' ? customStyle : undefined}
     >
-      <div className="absolute top-4 right-4 cursor-pointer bg-[#B873FF] rounded hover:bg-[#FC72FF] p-1 transition-all duration-100 ease-linear" onClick={() => dispatch(showModal())}>
+      <div className="absolute top-4 right-4 cursor-pointer bg-[#B873FF] rounded hover:bg-[#FC72FF] p-1 transition-all duration-100 ease-linear" onClick={() => dispatch(closeModal())}>
         <IoMdClose className="text-xl text-white" />
       </div>
       <div className="flex flex-col gap-4">
-        <div className="grid grid-cols-2 gap-8">
+        <div className='text-3xl font-semibold'>
+          {formType === "ADD" ? "Add Playlist" : "Update Playlist"}
+        </div>
+        <div className={formType === "UPDATE" ? "grid grid-cols-2 gap-8" : "grid grid-cols-1"}>
           <div>
             <div className="font-semibold my-6 text-xl">
               Playlist Details
             </div>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
-              <div className="flex flex-col border border-gray-300 rounded py-2 px-4">
-                <label htmlFor="title" className="text-gray-600">Title (required)</label>
-                <input {...register('title', {required : true})} defaultValue={playlist?.title} type="text" id="title" placeholder="Add text here" className="py-2 outline-none" />
+              <div className={errors.title ? "flex flex-col border border-red-400 rounded py-2 px-4" : "flex flex-col border border-gray-300 rounded py-2 px-4"}>
+                <label htmlFor="title" className={errors.title ? "text-red-500" : "text-gray-600"}>Title (required)</label>
+                {
+                  formType === "UPDATE" ?
+                  <input {...register('title', {required : true})} defaultValue={playlist?.title} type="text" id="title" placeholder="Add text here" className="py-2 outline-none" /> :
+                  <input {...register('title', {required : true})} type="text" id="title" placeholder="Add text here" className="py-2 outline-none" />
+                }
+                {errors.title && <p className='text-red-500 bg-red-200 rounded px-2'>{errors.title?.message}</p>}
               </div>
               <div className="flex flex-col border border-gray-300 rounded py-2 px-4">
                 <label htmlFor="description" className="text-gray-600">Description</label>
-                <textarea {...register('description')} defaultValue={playlist?.description} name="description" id="description" placeholder="Add description here" className="py-2 outline-none"></textarea>
+                {
+                  formType === "UPDATE" ?
+                  <textarea {...register('description')} defaultValue={playlist?.description} id="description" placeholder="Add description here" className="py-2 outline-none"></textarea> :
+                  <textarea {...register('description')} id="description" placeholder="Add description here" className="py-2 outline-none"></textarea>
+                }
               </div>
+              {
+                formType === "ADD" &&
+                <>
+                  <div className='flex flex-col gap-2'>
+                    <label htmlFor="playlistImg" className='text-gray-600 font-semibold'>Playlist Thumbnail</label>
+                    <label className="block">
+                      <span className="sr-only">Playlist Thumbnil</span>
+                      <input {...register('playlistImage')} id='playlistImg' type="file" className="block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#B873FF] file:text-white hover:file:bg-[#FC72FF] " />
+                    </label>
+                  </div>
+                  <div className='flex flex-col gap-2'>
+                    <label htmlFor="playlistImg" className='text-gray-600 font-semibold'>Videos</label>
+                    <label className="block">
+                      <span className="sr-only">Videos</span>
+                      <input {...register('videos')} multiple id='playlistImg' type="file" className="block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#B873FF] file:text-white hover:file:bg-[#FC72FF] " />
+                    </label>
+                  </div>
+                </>
+              }
               <div className='flex items-center gap-4 justify-end'>
-                <div className={`text-[${LIGHTPURPLE}] font-semibold hover:text-[${DARKPURPLE}]`}>Cancel Change</div>
+                <button onClick={() => dispatch(closeModal())} className={`text-[${LIGHTPURPLE}] font-semibold hover:text-[${DARKPURPLE}]`}>Cancel Change</button>
                 <Button 
                   btnTitle='Save change'
                   addionalStyle='rounded-md py-2'
@@ -68,12 +112,16 @@ const CustomizedModal = ({isOpen, playlist} : Props) => {
             </form>
           </div>
           <div className='flex flex-col gap-2 w-5/6 h-[450px] overflow-y-scroll'>
-            <div className="font-semibold my-6 text-xl">
-              Playlist Videos
-            </div>
             {
+              formType === "UPDATE" && 
+              <div className="font-semibold my-5 text-xl">
+                Playlist Videos
+              </div>
+            }
+            {
+              formType === "UPDATE" &&
               playlist?.videos.map((video, index) => (
-                <div key={index} className={`group flex justify-between items-center bg-[#eee] border border-[#ccc] p-2 hover:bg-[${LIGHTPURPLE}] hover:text-white transition-all duration-100 ease-linear`}>
+                <div key={index} className={`group rounded-md flex justify-between items-center bg-[#eee] border border-[#ccc] p-2 hover:bg-[${LIGHTPURPLE}] hover:text-white transition-all duration-100 ease-linear`}>
                   <div className='flex gap-4 items-center'>
                     <ReactPlayer url={video.url} light width={'130px'} height={'70px'} style={{background :'black'}} />
                     <div>
