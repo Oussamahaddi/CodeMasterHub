@@ -16,19 +16,18 @@ export type LoginInputType = {
   confirmpassword? : string
 }
 
-export type PlaylistT = {
-  id : string
-  url : string
+export type CoursesT = {
+  _id?: string
   title : string
   description : string
-  date : string
   technologie : string
   img : string
-  videos : VideoT[],
+  videos : string[],
+  createdAt: string
 }
 
-export type VideoT = {
-  title : string
-  description : string
-  url : string
-}
+// export type VideoT = {
+//   title : string
+//   description : string
+//   url : string
+// }

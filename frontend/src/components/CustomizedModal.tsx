@@ -1,8 +1,8 @@
 import React from 'react'
 import Modal from "react-modal"
-import { PlaylistT } from '../types/Types'
+import { CoursesT } from '../types/Types'
 import { IoMdClose } from 'react-icons/io'
-import { closeModal } from '../features/Playlist/PlaylistSlice'
+import { closeModal } from '../features/Courses/CourseSlice'
 import { useAppDispatch } from '../hook'
 import ReactPlayer from 'react-player'
 import { DARKPURPLE, LIGHTPURPLE } from '../styles/Color'
@@ -12,7 +12,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 interface Props {
   isOpen : boolean
-  playlist : PlaylistT
+  course : CoursesT
   formType : "ADD" | "UPDATE"
 }
 
@@ -30,7 +30,7 @@ const customStyle = {
   }
 } 
 
-const CustomizedModal = ({isOpen, playlist, formType} : Props) => {
+const CustomizedModal = ({isOpen, course, formType} : Props) => {
 
   const dispatch = useAppDispatch();
   const {
@@ -69,7 +69,7 @@ const CustomizedModal = ({isOpen, playlist, formType} : Props) => {
                 <label htmlFor="title" className={errors.title ? "text-red-500" : "text-gray-600"}>Title (required)</label>
                 {
                   formType === "UPDATE" ?
-                  <input {...register('title', {required : true})} defaultValue={playlist?.title} type="text" id="title" placeholder="Add text here" className="py-2 outline-none" /> :
+                  <input {...register('title', {required : true})} defaultValue={course?.title} type="text" id="title" placeholder="Add text here" className="py-2 outline-none" /> :
                   <input {...register('title', {required : true})} type="text" id="title" placeholder="Add text here" className="py-2 outline-none" />
                 }
                 {errors.title && <p className='text-red-500 bg-red-200 rounded px-2'>{errors.title?.message}</p>}
@@ -78,7 +78,7 @@ const CustomizedModal = ({isOpen, playlist, formType} : Props) => {
                 <label htmlFor="description" className="text-gray-600">Description</label>
                 {
                   formType === "UPDATE" ?
-                  <textarea {...register('description')} defaultValue={playlist?.description} id="description" placeholder="Add description here" className="py-2 outline-none"></textarea> :
+                  <textarea {...register('description')} defaultValue={course?.description} id="description" placeholder="Add description here" className="py-2 outline-none"></textarea> :
                   <textarea {...register('description')} id="description" placeholder="Add description here" className="py-2 outline-none"></textarea>
                 }
               </div>
@@ -119,14 +119,14 @@ const CustomizedModal = ({isOpen, playlist, formType} : Props) => {
             }
             {
               formType === "UPDATE" &&
-              playlist?.videos.map((video, index) => (
+              course?.videos.map((video, index) => (
                 <div key={index} className={`group rounded-md flex justify-between items-center bg-[#eee] border border-[#ccc] p-2 hover:bg-[${LIGHTPURPLE}] hover:text-white transition-all duration-100 ease-linear`}>
                   <div className='flex gap-4 items-center'>
-                    <ReactPlayer url={video.url} light width={'130px'} height={'70px'} style={{background :'black'}} />
-                    <div>
+                    <ReactPlayer url={video} light width={'130px'} height={'70px'} style={{background :'black'}} />
+                    {/* <div>
                       <h5>{video.title}</h5>
                       <p>{video.description}</p>
-                    </div>
+                    </div> */}
                   </div>
                   <div className='px-2 text-red-500 hover:text-red-300'>
                     <FaTrash className='cursor-pointer' />

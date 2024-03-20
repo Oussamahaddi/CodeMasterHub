@@ -3,7 +3,7 @@ import HeaderDash from "../components/Dashboard/HeaderDash";
 import SideBar from "../components/Dashboard/SideBar";
 import { FaPlus } from "react-icons/fa";
 import { DARKPURPLE, LIGHTPURPLE } from "../styles/Color";
-import { addPlaylist } from "../features/Playlist/PlaylistSlice";
+import { addPlaylist } from "../features/Courses/CourseSlice";
 import { useAppDispatch } from "../hook";
 
 const Dashboard = () => {  

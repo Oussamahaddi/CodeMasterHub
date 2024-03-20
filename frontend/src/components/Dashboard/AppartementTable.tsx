@@ -1,18 +1,25 @@
 import { FaTrash } from "react-icons/fa6";
 import CustomizedModal from "../CustomizedModal";
-import { PlaylistT } from "../../types/Types";
+import { CoursesT } from "../../types/Types";
 import { useAppDispatch, useAppSelector } from "../../hook";
-import { selectPlaylist, updatePlaylit } from "../../features/Playlist/PlaylistSlice";
+import { selectPlaylist, updatePlaylit } from "../../features/Courses/CourseSlice";
+import { useEffect } from "react";
+import { fetchAllCoursesThunk } from "../../features/Courses/CourseApi";
+import ReactPlayer from "react-player";
 
 const BasicTable = () => {
 
-  const { modalVisibility, playlists, selectedPlaylist, formType } = useAppSelector(state => state.playlist)
+  const { modalVisibility, courses, selectedCourse, formType, loading } = useAppSelector(state => state.courses)
   const dispatch = useAppDispatch();
 
-  const handleSelectPlaylit = (playlist : PlaylistT) => {
+  const handleSelectPlaylit = (playlist : CoursesT) => {
     dispatch(updatePlaylit());
     dispatch(selectPlaylist(playlist));
   }
+
+  useEffect(() => {
+    dispatch(fetchAllCoursesThunk());
+  }, [])
 
   return (
     <>
@@ -43,23 +50,23 @@ const BasicTable = () => {
             </thead>
             <tbody className="">
               {
-                playlists && playlists?.map((playlist) => (
-                  <tr onClick={() => handleSelectPlaylit(playlist)} key={playlist.id} className="border-b border-[#a7abb2] hover:bg-[#e9e9e9]">
+                courses && courses?.map((course) => (
+                  <tr onClick={() => handleSelectPlaylit(course)} key={course._id} className="border-b border-[#a7abb2] hover:bg-[#e9e9e9]">
                     <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap flex items-center ">
-                      <img src={playlist.img} alt="" className="w-20 aspect-square object-contain" />
+                      <ReactPlayer url={course.videos[0]} width={'120px'} height={'70px'} className="w-20 aspect-square object-contain" />
                       <div className="ps-3">
-                        <div className="text-base font-semibold">{playlist.title}</div>
-                        <div className="font-normal text-gray-500 break-word">{playlist.description}</div>
+                        <div className="text-base font-semibold">{course.title}</div>
+                        <div className="font-normal text-gray-500 break-word">{course.description}</div>
                       </div>
                     </th>
                     <td className="px-6 py-4">
-                      {playlist.videos.length}
+                      {course.videos.length}
                     </td>
                     <td className="px-6 py-4">
-                      {playlist.date}
+                      {String(course.createdAt).slice(0,10)}
                     </td>
                     <td className="px-6 py-4 font-semibold">
-                      {playlist.technologie}
+                      {course.technologie}
                     </td>
                     <td className="px-6 gap-6">
                       {/* <button className="text-green-500">Edit</button> */}
@@ -76,7 +83,7 @@ const BasicTable = () => {
       </div>
       <CustomizedModal
         isOpen={modalVisibility}
-        playlist={selectedPlaylist!}
+        course={selectedCourse!}
         formType={formType}
       />
     </>

@@ -1,12 +1,14 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { Tuple, configureStore } from "@reduxjs/toolkit";
 import authSlice from "../features/Authentification/authSlice";
-import PlaylistSlice from "../features/Playlist/PlaylistSlice";
+import CoursesSlice from "../features/Courses/CourseSlice";
+import { thunk } from "redux-thunk";
 
 const store = configureStore({
   reducer : {
     authentification : authSlice,
-    playlist : PlaylistSlice,
-  }
+    courses : CoursesSlice,
+  },
+  middleware : () => new Tuple(thunk)
 })
 
 export type RootState = ReturnType<typeof store.getState>

@@ -11,11 +11,15 @@ const CourseSchema : Schema<CourseType> = new Schema<CourseType>({
     type : String,
     required : [true , 'Description required'],
   },
+  technologie : {
+    type : String,
+    required : [true, "Technologie required"]
+  },
   videos : [
     {
       type : String,
     }
   ],
-})
+}, {timestamps : true})
 
 export const CourseModel = mongoose.model<CourseType>("courses", CourseSchema)

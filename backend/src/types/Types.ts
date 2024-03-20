@@ -25,6 +25,7 @@ export type CourseType = {
   title : string
   description : string
   videos : string[]
+  technologie : string
 }
 
 export type LoginType = Pick<UserModelTypes, "email" | "password">
