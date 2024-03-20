@@ -1,6 +1,6 @@
 import React from 'react'
 import Modal from "react-modal"
-import { PlaylistT, VideoT } from '../types/Types'
+import { PlaylistT } from '../types/Types'
 import { IoMdClose } from 'react-icons/io'
 import { closeModal } from '../features/Playlist/PlaylistSlice'
 import { useAppDispatch } from '../hook'
@@ -9,7 +9,6 @@ import { DARKPURPLE, LIGHTPURPLE } from '../styles/Color'
 import { FaTrash } from 'react-icons/fa'
 import Button from './Partials/Button'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { IoCloudUploadSharp } from "react-icons/io5";
 
 interface Props {
   isOpen : boolean

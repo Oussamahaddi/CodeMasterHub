@@ -24,7 +24,7 @@ export interface StudentType extends UserModelTypes {
 export type CourseType = {
   title : string
   description : string
-  videos : []
+  videos : string[]
 }
 
 export type LoginType = Pick<UserModelTypes, "email" | "password">
