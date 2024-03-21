@@ -1,6 +1,5 @@
 import { Outlet, Navigate } from "react-router-dom";
 import { UserResponseT } from "../types/Types";
-import { useEffect, useState } from "react";
 
 const PrivateRoutes = () => {
 

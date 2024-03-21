@@ -1,21 +1,21 @@
 
 
 export type RegisterType = {
-  firstname : string
-  lastname : string
+  firstName : string
+  lastName : string
   email : string
   password : string
-  confirmpassword : string
+  address : string
   role : string
   phoneNumber : string
 }
 
 export type LoginType = {
-  firstname? : string
-  lastname? : string
+  firstName? : string
+  lastName? : string
   email : string
   password : string
-  confirmpassword? : string
+  address? : string
   role? : string
   phoneNumber? : string
 }
@@ -36,7 +36,7 @@ export type UserType = {
   address : string
   email : string
   phoneNumber : string
-  role : "student" | "instructor"
+  role : "student" | "instructor" | "admin"
 }
 
 export type UserResponseT = {

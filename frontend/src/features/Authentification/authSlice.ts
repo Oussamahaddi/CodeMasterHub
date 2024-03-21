@@ -1,16 +1,19 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { UserResponseT } from "../../types/Types";
-import { loginThunk } from "./authApi";
-import { useNavigate } from "react-router-dom";
+import { loginThunk, signUpThunk } from "./authApi";
 
 interface InitialState {
   auth : boolean
   user : UserResponseT | null
+  logged : boolean
+  checkRole : "student" | "instructor" | "admin"
 }
 
 const initialState : InitialState = {
   auth : false,
-  user : null
+  user : null,
+  logged : false,
+  checkRole : "student"
 }
 
 const authSlice = createSlice({
@@ -23,6 +26,10 @@ const authSlice = createSlice({
     login : (state, actions : PayloadAction) => {
       state.auth = false
     },
+    logout : (state, actions : PayloadAction) => {
+      localStorage.removeItem("user");
+      state.logged = false;
+    },
     switchForm : (state, actions : PayloadAction) => {
       state.auth = !state.auth
     },
@@ -30,11 +37,47 @@ const authSlice = createSlice({
   extraReducers : (builder) => {
     builder.addCase(loginThunk.fulfilled, (state, action) => {
       localStorage.setItem("user", JSON.stringify(action.payload))
+      state.logged = true
+      switch (action.payload.user.role) {
+        case "instructor":
+          state.checkRole = "instructor"
+          break;
+        case "student":
+          state.checkRole = "student"
+          break;
+        case "admin":
+          state.checkRole = "admin"
+          break;
+        default:
+          state.checkRole = "student"
+          break;
+      }
     }).addCase(loginThunk.rejected, (state, action) => {
+      state.logged = false;
       console.log(action.error);
+    }).addCase(signUpThunk.fulfilled, (state, action) => {
+      localStorage.setItem("user", JSON.stringify(action.payload))
+      state.logged = true
+      switch (action.payload.user.role) {
+        case "instructor":
+          state.checkRole = "instructor"
+          break;
+        case "student":
+          state.checkRole = "student"
+          break;
+        case "admin":
+          state.checkRole = "admin"
+          break;
+        default:
+          state.checkRole = "student"
+          break;
+      }
+    }).addCase(signUpThunk.rejected, (state, action) => {
+      state.logged = false
+      console.log(action.error)
     })
   }
 })
 
-export const { login, register, switchForm } = authSlice.actions
+export const { login, register, switchForm, logout } = authSlice.actions
 export default authSlice.reducer;

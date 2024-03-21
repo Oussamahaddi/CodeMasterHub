@@ -4,11 +4,19 @@ import SideBar from "../components/Dashboard/SideBar";
 import { FaPlus } from "react-icons/fa";
 import { DARKPURPLE, LIGHTPURPLE } from "../styles/Color";
 import { addPlaylist } from "../features/Courses/CourseSlice";
-import { useAppDispatch } from "../hook";
+import { useAppDispatch, useAppSelector } from "../hook";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {  
 
   const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+  const {logged} = useAppSelector(state => state.authentification)
+
+  useEffect(() => {
+    if (!logged) navigate('/')
+  }, [logged, navigate])
 
   return (
     <div className="h-screen overflow-hidden flex gap-4 p-4 bg-gradient-to-b from-[#B873FF] from-40% to-white to-30% ">

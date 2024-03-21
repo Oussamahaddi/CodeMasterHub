@@ -1,10 +1,12 @@
-import { FaHome } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
-import { Link } from 'react-router-dom';
 import { DARKPURPLE } from "../../styles/Color";
 import { CgPlayList } from "react-icons/cg";
+import { useAppDispatch } from "../../hook";
+import { logout } from "../../features/Authentification/authSlice";
 
 const SideBar = () => {
+
+  const dispatch = useAppDispatch()
 
   return (
     <div className={`w-64 bg-white rounded-lg text-black font-semibold h-5/6 p-4 flex flex-col justify-between items-center shadow-[0_0_5px] shadow-black/30`}>
@@ -18,10 +20,10 @@ const SideBar = () => {
           </div>
         </div>
       </div>
-      <div className='p-2 rounded flex justify-center text-white items-center gap-2 bg-[#B873FF] w-full hover:bg-[#FC72FF] shadow-[0px_2px_6px_0px_rgba(0,0,0,.3)]'>
+      <button onClick={() => dispatch(logout())} className='p-2 rounded flex justify-center text-white items-center gap-2 bg-[#B873FF] w-full hover:bg-[#FC72FF] shadow-[0px_2px_6px_0px_rgba(0,0,0,.3)]'>
         <CiLogout />
-        <button>Logout</button>
-      </div>
+        Logout
+      </button>
     </div>
   )
 }

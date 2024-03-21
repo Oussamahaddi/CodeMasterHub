@@ -19,12 +19,13 @@ const Login = () => {
   const navigate = useNavigate()
 
   const authSchema = yup.object({
-    firstname : auth ? yup.string().required() : yup.string(),
-    lastname : auth ? yup.string().required() : yup.string(),
+    firstName : auth ? yup.string().required() : yup.string(),
+    lastName : auth ? yup.string().required() : yup.string(),
     email : yup.string().email().required(),
     password : yup.string().min(6).max(20).required(),
-    confirmpassword : auth ? yup.string().required() : yup.string(),
-    phoneNumber : auth ? yup.string().required() : yup.string()
+    address : auth ? yup.string().required() : yup.string(),
+    phoneNumber : auth ? yup.string().required() : yup.string(),
+    role : auth ? yup.string().required() : yup.string()
   })
 
   const {
@@ -39,8 +40,11 @@ const Login = () => {
     if (auth) {
       dispatch(signUpThunk(data as RegisterType))
     } else {
-      dispatch(loginThunk(data))
+      dispatch(loginThunk(data as LoginType))
     }
+    const user : UserResponseT | null = JSON.parse(localStorage.getItem("user")!)
+    if (user && user.user.role === "instructor") navigate("/dashboard")
+    navigate("/")
   };
 
   useEffect(() => {
@@ -69,9 +73,9 @@ const Login = () => {
                   <InputCustomized
                     placeholder='First Name'
                     type='text'
-                    label='firstname'
+                    label='firstName'
                     register={register}
-                    errors={errors.firstname}
+                    errors={errors.firstName}
                     required
                   />
                 </div>
@@ -79,9 +83,9 @@ const Login = () => {
                   <InputCustomized
                     placeholder='Last Name'
                     type='text'
-                    label='lastname'
+                    label='lastName'
                     register={register}
-                    errors={errors.lastname}
+                    errors={errors.lastName}
                     required
                   />
                 </div>
@@ -110,11 +114,11 @@ const Login = () => {
             { 
               auth &&
               <InputCustomized
-                placeholder='Confirm Password'
-                type='password'
-                label='confirmpassword'
+                placeholder='Address'
+                type='text'
+                label='address'
                 register={register}
-                errors={errors.confirmpassword!}
+                errors={errors.phoneNumber!}
                 required
               />
             }
@@ -134,14 +138,15 @@ const Login = () => {
               <div className='flex flex-col'>  
                 <div className='flex gap-4'>
                   <div className='flex gap-2 items-center'>
-                    <input {...register("role")} type="radio" id='student' value="student" />
+                    <input {...register("role", {required : true})} type="radio" id='student' value="student" />
                     <label htmlFor="student" className=' font-semibold'>Student</label>
                   </div>
                   <div className='flex gap-2 items-center'>
-                    <input {...register("role")} type="radio" id='instructor' value="instructor" />
+                    <input {...register("role", {required : true})} type="radio" id='instructor' value="instructor" />
                     <label htmlFor="instructor" className=' font-semibold'>Insctructor</label>
                   </div>
                 </div>
+                {errors.role && <p className='text-red-500 bg-red-200 rounded px-2'>{errors.role.message}</p>}
               </div>
             }
             <Button
