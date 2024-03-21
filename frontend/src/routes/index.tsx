@@ -1,5 +1,7 @@
 import { lazy } from "react";
 import PathConstant from "./PathConstant";
+import PrivateRoutes from "../utils/PrivateRoute";
+import { RouteObject } from "react-router-dom";
 
 const Home = lazy(() => import("../pages/Home"))
 const Courses = lazy(() => import("../pages/Courses"))
@@ -9,27 +11,27 @@ const PlayList = lazy(() => import("../pages/Playlist"))
 const Dashboard = lazy(() => import("../pages/Dashboard"))
 const Auth = lazy(() => import("../pages/Auth/Auth"))
 
-interface RouterTypeT {
-  path : string
-  element : React.ReactNode
-}
-
-const routes : RouterTypeT[] = [
+const routes : RouteObject[] = [
   {
     path : PathConstant.HOME,
     element : <Home />
   },
   {
     path : PathConstant.COURSES,
-    element : <Courses />,
-  },
-  {
-    path : `${PathConstant.COURSES}/:id`,
-    element : <CourseDetails />,
-  },
-  {
-    path : `${PathConstant.COURSES}/:id/playlist`,
-    element : <PlayList />,
+    children : [
+      {
+        path : "",
+        element : <Courses />,
+      },
+      {
+        path : ':id',
+        element : <CourseDetails />,
+      },
+      {
+        path : ':id/playlist',
+        element : <PlayList />,
+      },
+    ]
   },
   {
     path : PathConstant.AUTH,
@@ -41,7 +43,10 @@ const routes : RouterTypeT[] = [
   },
   {
     path : PathConstant.DASHBOARD,
-    element : <Dashboard />
+    element : <PrivateRoutes />,
+    children : [
+      {path : "", element : <Dashboard />}
+    ]
   }
 ]
 

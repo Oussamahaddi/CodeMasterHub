@@ -1,12 +1,12 @@
 import React from 'react'
 import { FieldError, Path, UseFormRegister } from 'react-hook-form'
-import { LoginInputType, UserT } from '../../types/Types'
+import { LoginType, RegisterType } from '../../types/Types'
 
 interface Props {
   type : string
-  label : Path<UserT>
+  label : Path<RegisterType>
   placeholder: string
-  register : UseFormRegister<UserT | LoginInputType>
+  register : UseFormRegister<RegisterType | LoginType>
   required?: boolean
   errors?: FieldError
 }

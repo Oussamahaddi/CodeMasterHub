@@ -1,35 +1,55 @@
 import InputCustomized from '../../components/Form/InputCustomized'
 import Button from '../../components/Partials/Button'
 import { FaCircleArrowRight } from "react-icons/fa6";
-import { LoginInputType, UserT } from '../../types/Types';
+import { LoginType, UserResponseT, RegisterType } from '../../types/Types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from 'yup'
 import { useAppDispatch, useAppSelector } from '../../hook';
 import { switchForm } from '../../features/Authentification/authSlice';
+import { loginThunk, signUpThunk } from '../../features/Authentification/authApi';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Login = () => {
 
   const {auth} = useAppSelector(state => state.authentification)
   const dispatch = useAppDispatch();
 
-  const registerSchema = yup.object({
+  const navigate = useNavigate()
+
+  const authSchema = yup.object({
     firstname : auth ? yup.string().required() : yup.string(),
     lastname : auth ? yup.string().required() : yup.string(),
     email : yup.string().email().required(),
     password : yup.string().min(6).max(20).required(),
     confirmpassword : auth ? yup.string().required() : yup.string(),
+    phoneNumber : auth ? yup.string().required() : yup.string()
   })
 
   const {
     handleSubmit,
     register,
     formState : {errors},
-  } = useForm<UserT | LoginInputType>({
-    resolver : yupResolver(registerSchema),
+  } = useForm<RegisterType | LoginType>({
+    resolver : yupResolver(authSchema),
   })
 
-  const onSubmit : SubmitHandler<UserT | LoginInputType> = (data) => console.log(data);
+  const onSubmit : SubmitHandler<RegisterType | LoginType> = (data) => {
+    if (auth) {
+      dispatch(signUpThunk(data as RegisterType))
+    } else {
+      dispatch(loginThunk(data))
+    }
+  };
+
+  useEffect(() => {
+    const user : UserResponseT = JSON.parse(localStorage.getItem("user")!);
+    if (user) {
+      if (user.user.role === "instructor") navigate("/dashboard")
+      else navigate("/")
+    }
+  }, [navigate])
   
 
   return (
@@ -97,6 +117,32 @@ const Login = () => {
                 errors={errors.confirmpassword!}
                 required
               />
+            }
+            { 
+              auth &&
+              <InputCustomized
+                placeholder='Phone Number'
+                type='text'
+                label='phoneNumber'
+                register={register}
+                errors={errors.phoneNumber!}
+                required
+              />
+            }
+            {
+              auth &&
+              <div className='flex flex-col'>  
+                <div className='flex gap-4'>
+                  <div className='flex gap-2 items-center'>
+                    <input {...register("role")} type="radio" id='student' value="student" />
+                    <label htmlFor="student" className=' font-semibold'>Student</label>
+                  </div>
+                  <div className='flex gap-2 items-center'>
+                    <input {...register("role")} type="radio" id='instructor' value="instructor" />
+                    <label htmlFor="instructor" className=' font-semibold'>Insctructor</label>
+                  </div>
+                </div>
+              </div>
             }
             <Button
               addionalStyle='flex items-center gap-4 justify-center w-full py-2 rounded-md'

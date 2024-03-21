@@ -7,12 +7,13 @@ import bcrypt from "bcrypt";
 
 export const login = asyncHandler(async (req : Request, res : Response) => {
   const {email, password} : LoginType = req.body
-  const user : UserModelTypes | null = await UserModel.findOne({email : email});
+  const user = await UserModel.findOne({email : email});
   if (!user) throw new Error("User Not Found!!");
   const comparePwd = await bcrypt.compare(password, user.password);
   if (!comparePwd) throw new Error("Password incorrect!!");
+  const {password : pwd, ...useWithoutPassword} = user.toObject();
   const token = generateToken(user.id!, user.role);
-  res.status(201).json({user, token});
+  res.status(201).json({user : useWithoutPassword, token});
 })
 
 export const register = asyncHandler(async (req : Request, res : Response) => {
@@ -28,7 +29,8 @@ export const register = asyncHandler(async (req : Request, res : Response) => {
   const user = new UserModel(data);
   const error = user.validateSync();
   if (error) throw new Error(error.message);
-  await user.save();
+  const save = await user.save();
+  const {password : pwd, ...userWithoutPassword} = save.toObject();
   const token = generateToken(user.id!, role)
-  res.status(201).json({user, token});
+  res.status(201).json({user : userWithoutPassword, token});
 })

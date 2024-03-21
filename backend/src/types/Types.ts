@@ -1,3 +1,5 @@
+import { Request } from "express"
+import { JwtPayload } from "jsonwebtoken"
 
 export type UserModelTypes = {
   id?: string
@@ -34,3 +36,10 @@ export type RegisterType = Omit<UserModelTypes,"fullName" | "id"> & {
   firstName : string
   lastName : string
 }
+
+export interface CustomRequest extends Request {
+  userId? : string
+}
+export interface DecodedToken extends JwtPayload {
+  userId: string
+};

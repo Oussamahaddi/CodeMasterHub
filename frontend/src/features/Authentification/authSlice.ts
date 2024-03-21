@@ -1,11 +1,16 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { UserResponseT } from "../../types/Types";
+import { loginThunk } from "./authApi";
+import { useNavigate } from "react-router-dom";
 
 interface InitialState {
   auth : boolean
+  user : UserResponseT | null
 }
 
 const initialState : InitialState = {
-  auth : false
+  auth : false,
+  user : null
 }
 
 const authSlice = createSlice({
@@ -21,7 +26,13 @@ const authSlice = createSlice({
     switchForm : (state, actions : PayloadAction) => {
       state.auth = !state.auth
     },
-    
+  },
+  extraReducers : (builder) => {
+    builder.addCase(loginThunk.fulfilled, (state, action) => {
+      localStorage.setItem("user", JSON.stringify(action.payload))
+    }).addCase(loginThunk.rejected, (state, action) => {
+      console.log(action.error);
+    })
   }
 })
 
