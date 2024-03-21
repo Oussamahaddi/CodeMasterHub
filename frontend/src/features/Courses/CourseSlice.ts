@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { CoursesT } from "../../types/Types"
-import { fetchAllCoursesThunk } from "./CourseApi"
+import { fetchAllCoursesThunk, fetchAllCoursesbyInstructor } from "./CourseApi"
 
 interface InitialState {
-  courses : CoursesT[]
+  AllCourses : CoursesT[]
+  instructorCourses : CoursesT[]
   selectedCourse : CoursesT | null
   modalVisibility : boolean
   formType : "ADD" | "UPDATE"
@@ -11,7 +12,8 @@ interface InitialState {
 }
 
 const initialState : InitialState = {
-  courses : [],
+  AllCourses : [],
+  instructorCourses: [],
   modalVisibility : false,
   selectedCourse : null,
   formType : "ADD",
@@ -45,11 +47,21 @@ const CoursesSlice = createSlice({
     .addCase(fetchAllCoursesThunk.fulfilled, (state, action) => {
       console.log('fulfilled');
       state.loading = false
-      state.courses = action.payload
+      state.AllCourses = action.payload
     })
     .addCase(fetchAllCoursesThunk.rejected, (state, action) => {
-      console.log('rejected');
       state.loading = false
+    })
+    .addCase(fetchAllCoursesbyInstructor.pending, (state, action) => {
+      state.loading = true
+    })
+    .addCase(fetchAllCoursesbyInstructor.fulfilled, (state, action) => {
+      state.loading = false
+      state.instructorCourses = action.payload
+    })
+    .addCase(fetchAllCoursesbyInstructor.rejected, (state, action) => {
+      state.loading = false
+      console.log(action.error)
     })
   }
 })

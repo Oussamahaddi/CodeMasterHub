@@ -8,6 +8,6 @@ import { auth } from "../middleware/Auth";
 const router = Router()
 
 router.use("/auth", authRouter);
-router.use('/courses', auth, VerifyRole('instructor'), uploadMiddleware, courseRouter);
+router.use('/courses', uploadMiddleware, courseRouter);
 
 export default router;

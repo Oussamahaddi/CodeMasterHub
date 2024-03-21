@@ -12,7 +12,7 @@ export const login = asyncHandler(async (req : Request, res : Response) => {
   const comparePwd = await bcrypt.compare(password, user.password);
   if (!comparePwd) throw new Error("Password incorrect!!");
   const {password : pwd, ...useWithoutPassword} = user.toObject();
-  const token = generateToken(user.id!, user.role);
+  const token = generateToken(user._id!, user.role);
   res.status(201).json({user : useWithoutPassword, token});
 })
 
@@ -31,6 +31,6 @@ export const register = asyncHandler(async (req : Request, res : Response) => {
   if (error) throw new Error(error.message);
   const save = await user.save();
   const {password : pwd, ...userWithoutPassword} = save.toObject();
-  const token = generateToken(user.id!, role)
+  const token = generateToken(user._id, role)
   res.status(201).json({user : userWithoutPassword, token});
 })

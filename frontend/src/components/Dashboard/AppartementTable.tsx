@@ -9,7 +9,7 @@ import ReactPlayer from "react-player";
 
 const BasicTable = () => {
 
-  const { modalVisibility, courses, selectedCourse, formType, loading } = useAppSelector(state => state.courses)
+  const { modalVisibility, selectedCourse, formType, loading, instructorCourses } = useAppSelector(state => state.courses)
   const dispatch = useAppDispatch();
 
   const handleSelectPlaylit = (playlist : CoursesT) => {
@@ -50,7 +50,7 @@ const BasicTable = () => {
             </thead>
             <tbody className="">
               {
-                courses && courses?.map((course) => (
+                instructorCourses && instructorCourses?.map((course) => (
                   <tr onClick={() => handleSelectPlaylit(course)} key={course._id} className="border-b border-[#a7abb2] hover:bg-[#e9e9e9]">
                     <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap flex items-center ">
                       <ReactPlayer url={course.videos[0]} width={'120px'} height={'70px'} className="w-20 aspect-square object-contain" />

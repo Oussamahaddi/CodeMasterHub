@@ -21,8 +21,8 @@ const CourseSchema : Schema<CourseType> = new Schema<CourseType>({
       required : [true, "Videos required"]
     }
   ],
-  instructor_id : {
-    type : String,
+  user : {
+    type : Schema.Types.ObjectId,
     ref : 'User',
     required : [true, "Instructor_id required"]
   }

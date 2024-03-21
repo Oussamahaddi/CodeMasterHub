@@ -1,9 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Course from '../components/Courses/Course'
 import { NavLink } from 'react-router-dom'
 import PathConstant from '../routes/PathConstant'
+import { useAppDispatch, useAppSelector } from '../hook'
+import { fetchAllCoursesThunk } from '../features/Courses/CourseApi'
 
 const Courses = () => {
+
+  const {AllCourses, loading} = useAppSelector(state => state.courses);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchAllCoursesThunk());
+  }, [dispatch])
+
   return (
     <div className='w-full'>
       <div className='w-10/12 mx-auto  my-16'>
@@ -15,12 +25,13 @@ const Courses = () => {
           </select>
         </div>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-10 justify-between'>
-          <NavLink to={`${PathConstant.COURSES}/1`}>
-            <Course />
-          </NavLink>
-          <NavLink to={`${PathConstant.COURSES}/2`}>
-            <Course />
-          </NavLink>
+          {
+            AllCourses && AllCourses.map((course) => (
+              <NavLink key={course._id} to={`${PathConstant.COURSES}/${course._id}`} state={{course}}>
+                <Course course={course} />
+              </NavLink>
+            ))
+          }
         </div>
       </div>
     </div>

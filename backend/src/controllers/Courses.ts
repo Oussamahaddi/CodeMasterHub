@@ -1,18 +1,18 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import { CourseType, CustomRequest } from "../types/Types";
+import { CourseType, CourseWithInstructorT, CustomRequest } from "../types/Types";
 import { CourseModel } from "../models/Course";
 import { allowedFile } from "../middleware/uploadFiles";
 
 
-export const getAllCourses = asyncHandler(async (req : Request, res : Response) => {
-  const courses = await CourseModel.find();
+export const getAllCourses = asyncHandler(async (req : CustomRequest, res : Response) => {
+  const courses = await CourseModel.find().populate("user");
   if (!courses) throw new Error("No course Found!! ");
   res.status(200).json(courses);
 })
 
 export const getCoursesByInstructor = asyncHandler(async (req : CustomRequest, res : Response) => {
-  const courses = await CourseModel.find({instructor_id : req.userId})
+  const courses = await CourseModel.find({user : req.userId})
   if (!courses) throw new Error("No course Found!! ");
   res.status(200).json(courses);
 })
@@ -34,7 +34,7 @@ export const createCourse = asyncHandler(async (req : CustomRequest, res : Respo
     description,
     technologie,
     videos : videoPaths,
-    instructor_id : req.userId
+    user : req.userId
   });
 
   const error = course.validateSync();

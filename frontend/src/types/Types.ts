@@ -25,9 +25,9 @@ export type CoursesT = {
   title : string
   description : string
   technologie : string
-  img : string
   videos : string[],
   createdAt: string
+  user : UserType
 }
 
 export type UserType = {
