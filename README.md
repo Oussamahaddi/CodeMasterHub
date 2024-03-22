@@ -6,7 +6,7 @@ CodeMastersHub is a web platform designed for online programming courses. It pro
 
 - **Frontend**: [React.js](https://react.dev)
 - **Backend**: [Express.js](https://expressjs.com)
-- **Database**: [MongoDb]([https://react.dev](https://www.mongodb.com))
+- **Database**: [MongoDb](https://www.mongodb.com)
 
 ## Installation
 
