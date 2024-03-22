@@ -1,4 +1,4 @@
-import BasicTable from "../components/Dashboard/AppartementTable";
+import BasicTable from "../components/Dashboard/CoursesTable";
 import HeaderDash from "../components/Dashboard/HeaderDash";
 import SideBar from "../components/Dashboard/SideBar";
 import { FaPlus } from "react-icons/fa";

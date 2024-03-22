@@ -25,6 +25,11 @@ export const updateCourseThunk = createAsyncThunk('courses/updateCourse', async 
   return data
 })
 
+export const deleteCourseThunk = createAsyncThunk('courses/deleteCourse', async (courseId : string, thunkApi) => {
+  await http.delete(`/courses/${courseId}`);
+  thunkApi.dispatch(fetchAllCoursesbyInstructor());
+})
+
 export const uploadVideos = createAsyncThunk('courses/uploadVideos', async (payload : FileList) => {
   const formaData = new FormData();
   Array.from(payload).forEach(el => formaData.append("videos", el))

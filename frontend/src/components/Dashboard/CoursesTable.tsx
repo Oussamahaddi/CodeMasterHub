@@ -4,7 +4,7 @@ import { CoursesT } from "../../types/Types";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { selectPlaylist, updatePlaylit } from "../../features/Courses/CourseSlice";
 import { useEffect } from "react";
-import { fetchAllCoursesbyInstructor } from "../../features/Courses/CourseApi";
+import { deleteCourseThunk, fetchAllCoursesbyInstructor } from "../../features/Courses/CourseApi";
 import ReactPlayer from "react-player";
 import LoadingSpinner from "../LoadingSpin";
 
@@ -73,7 +73,7 @@ const BasicTable = () => {
                       </td>
                       <td className="px-6 gap-6">
                         {/* <button className="text-green-500">Edit</button> */}
-                        <button className="text-red-500 flex items-center gap-2">
+                        <button onClick={() => dispatch(deleteCourseThunk(course._id!))} className="text-red-500 flex items-center gap-2">
                           <FaTrash /> Delete
                         </button>
                       </td>

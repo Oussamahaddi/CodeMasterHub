@@ -40,7 +40,14 @@ export const updateCourse = asyncHandler(async (req : Request, res : Response) =
   const data = {
     title, description, technologie, videos
   }
-  const updatedCourse  : Omit<CourseType, "user" | "_id"> | null = await CourseModel.findOneAndUpdate({_id : id}, data, {runValidators : true, new : true});
+  const updatedCourse  : Omit<CourseType, "user" | "_id"> | null = await CourseModel.findByIdAndUpdate(id, data, {runValidators : true, new : true});
   if (!updatedCourse) throw new Error("Course Not Found!!");
   res.status(201).json(updatedCourse);
+})
+
+export const deleteCourse = asyncHandler(async (req : Request, res : Response) => {
+  const {id} = req.params
+  const deleteCourse  : CourseType| null = await CourseModel.findByIdAndDelete(id);
+  if (!deleteCourse) throw new Error("Course Not Found!!");
+  res.status(201).json(deleteCourse);
 })

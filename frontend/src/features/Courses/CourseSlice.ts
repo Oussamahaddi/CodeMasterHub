@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { CoursesT } from "../../types/Types"
-import { createCourseThunk, fetchAllCoursesThunk, fetchAllCoursesbyInstructor, updateCourseThunk } from "./CourseApi"
+import { fetchAllCoursesThunk, fetchAllCoursesbyInstructor } from "./CourseApi"
 
 interface InitialState {
   AllCourses : CoursesT[]
