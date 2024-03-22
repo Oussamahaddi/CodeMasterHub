@@ -4,7 +4,7 @@ import { CoursesT } from "../../types/Types";
 import { useAppDispatch, useAppSelector } from "../../hook";
 import { selectPlaylist, updatePlaylit } from "../../features/Courses/CourseSlice";
 import { useEffect } from "react";
-import { fetchAllCoursesThunk } from "../../features/Courses/CourseApi";
+import { fetchAllCoursesbyInstructor } from "../../features/Courses/CourseApi";
 import ReactPlayer from "react-player";
 
 const BasicTable = () => {
@@ -18,8 +18,8 @@ const BasicTable = () => {
   }
 
   useEffect(() => {
-    dispatch(fetchAllCoursesThunk());
-  }, [])
+    dispatch(fetchAllCoursesbyInstructor());
+  }, [dispatch])
 
   return (
     <>
@@ -56,7 +56,7 @@ const BasicTable = () => {
                       <ReactPlayer url={course.videos[0]} width={'120px'} height={'70px'} className="w-20 aspect-square object-contain" />
                       <div className="ps-3">
                         <div className="text-base font-semibold">{course.title}</div>
-                        <div className="font-normal text-gray-500 break-word">{course.description}</div>
+                        <p className="text-ellipsis font-normal text-gray-500 break-word">{course.description}</p>
                       </div>
                     </th>
                     <td className="px-6 py-4">

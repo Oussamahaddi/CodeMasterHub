@@ -1,8 +1,9 @@
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import PathConstant from '../../routes/PathConstant'
 import { useAppDispatch, useAppSelector } from '../../hook'
-import { login, register, logout } from '../../features/Authentification/authSlice'
+import { login, register, logout, checkUserRole } from '../../features/Authentification/authSlice'
 import { TbLogout2 } from "react-icons/tb";
+import { useEffect } from 'react';
 
 const routes = [
   {
@@ -30,6 +31,14 @@ const Header = () => {
     dispatch(logout())
     navigate("/")
   }
+
+  console.log(logged, checkRole);
+  
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user")!)
+    if (user) dispatch(checkUserRole(user));
+  }, [dispatch, logged])
 
   return (
     <header className={!(location.pathname === PathConstant.AUTH) ? 'w-full flex justify-center  sticky top-0 z-10 bg-white' : 'w-full flex justify-center p-10 text-white'}>

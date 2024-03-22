@@ -7,6 +7,8 @@ import { addPlaylist } from "../features/Courses/CourseSlice";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { checkUserRole } from "../features/Authentification/authSlice";
+import { UserResponseT } from "../types/Types";
 
 const Dashboard = () => {  
 
@@ -15,8 +17,9 @@ const Dashboard = () => {
   const {logged} = useAppSelector(state => state.authentification)
 
   useEffect(() => {
-    if (!logged) navigate('/')
-  }, [logged, navigate])
+    const user : UserResponseT = JSON.parse(localStorage.getItem("user")!)
+    if (user) dispatch(checkUserRole(user))
+  }, [dispatch, logged, navigate])
 
   return (
     <div className="h-screen overflow-hidden flex gap-4 p-4 bg-gradient-to-b from-[#B873FF] from-40% to-white to-30% ">

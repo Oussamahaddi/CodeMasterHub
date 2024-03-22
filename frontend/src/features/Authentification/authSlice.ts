@@ -33,6 +33,23 @@ const authSlice = createSlice({
     switchForm : (state, actions : PayloadAction) => {
       state.auth = !state.auth
     },
+    checkUserRole : (state, actions : PayloadAction<UserResponseT>) => {
+      state.logged = true;
+      switch (actions.payload.user.role) {
+        case "instructor":
+          state.checkRole = "instructor"
+          break;
+        case "student":
+          state.checkRole = "student"
+          break;
+        case "admin":
+          state.checkRole = "admin"
+          break;
+        default:
+          state.checkRole = "student"
+          break;
+      }
+    }
   },
   extraReducers : (builder) => {
     builder.addCase(loginThunk.fulfilled, (state, action) => {
@@ -79,5 +96,5 @@ const authSlice = createSlice({
   }
 })
 
-export const { login, register, switchForm, logout } = authSlice.actions
+export const { login, register, switchForm, logout, checkUserRole } = authSlice.actions
 export default authSlice.reducer;

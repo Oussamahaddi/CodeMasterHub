@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { UserResponseT } from '../../types/Types';
 
 const HeaderDash = () => {
+
+  const user : UserResponseT = JSON.parse(localStorage.getItem("user")!);
+
   return (
     <div className='flex  justify-between items-center w-full text-white mb-5 p-4'>
       <div>
@@ -9,8 +13,8 @@ const HeaderDash = () => {
       </div>
       <div className='flex gap-2 items-center'>
         <div className='text-right'>
-          <span className='text-lg font-semibold'>user name</span>
-          <p className='text-[#d0d0d0]'>oussama@gmail.com</p>
+          <span className='text-lg font-semibold'>{user.user.fullName}</span>
+          <p className='text-[#d0d0d0]'>{user.user.email}</p>
         </div>
         <div className=''>
           <img src='/assets/courses/prof.png' alt="" className='w-[50px] aspect-square rounded-full'/>
