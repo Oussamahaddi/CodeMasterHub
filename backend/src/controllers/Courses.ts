@@ -34,11 +34,13 @@ export const createCourse = asyncHandler(async (req : CustomRequest, res : Respo
   res.status(201).json(course);
 })
 
-export const removeVideoFromCourse = asyncHandler(async (req : Request, res : Response) => {
+export const updateCourse = asyncHandler(async (req : Request, res : Response) => {
   const {id} = req.params
-  const {url} = req.query;
-  const course  : CourseType | null = await CourseModel.findById(id);
-  if (!course) throw new Error("Course Not Found!!");
-  const videoUlrs = course.videos.filter(videoUrl => videoUrl !== url);
-  
+  const {title, description, technologie, videos} : Omit<CourseType, "user" | "_id"> = req.body
+  const data = {
+    title, description, technologie, videos
+  }
+  const updatedCourse  : Omit<CourseType, "user" | "_id"> | null = await CourseModel.findOneAndUpdate({_id : id}, data, {runValidators : true, new : true});
+  if (!updatedCourse) throw new Error("Course Not Found!!");
+  res.status(201).json(updatedCourse);
 })

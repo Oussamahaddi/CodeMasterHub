@@ -14,6 +14,7 @@ export type UserModelTypes = {
 
 
 export type CourseType = {
+  _id? : string
   title : string
   description : string
   videos : string[]

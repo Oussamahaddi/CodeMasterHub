@@ -13,8 +13,15 @@ export const fetchAllCoursesbyInstructor = createAsyncThunk('courses/fetchInstru
   return data
 })
 
-export const createCourseThunk = createAsyncThunk('courses/createCourse', async (payload : FormInputT) => {
+export const createCourseThunk = createAsyncThunk('courses/createCourse', async (payload : FormInputT, thunkApi) => {
   const {data} : {data : CoursesT[]} = await http.post("/courses/", payload);
+  thunkApi.dispatch(fetchAllCoursesbyInstructor())
+  return data
+})
+
+export const updateCourseThunk = createAsyncThunk('courses/updateCourse', async (payload : FormInputT, thunkApi) => {
+  const {data} : {data : CoursesT} = await http.patch(`/courses/${payload._id}`, payload);
+  thunkApi.dispatch(fetchAllCoursesbyInstructor());
   return data
 })
 

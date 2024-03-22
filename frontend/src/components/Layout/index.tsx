@@ -13,7 +13,9 @@ const Layout = () => {
     <div>
       {!(location.pathname === `${PathConstant.COURSES}/${param.id}/playlist` || location.pathname === PathConstant.DASHBOARD) && <Header />}
       <main>
-        <Suspense fallback={<LoadingSpin />}>
+        <Suspense 
+          fallback={<LoadingSpin />}
+        >
           <Outlet />
         </Suspense>
       </main>

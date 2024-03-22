@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { CoursesT } from "../../types/Types"
-import { createCourseThunk, fetchAllCoursesThunk, fetchAllCoursesbyInstructor } from "./CourseApi"
+import { createCourseThunk, fetchAllCoursesThunk, fetchAllCoursesbyInstructor, updateCourseThunk } from "./CourseApi"
 
 interface InitialState {
   AllCourses : CoursesT[]
@@ -62,9 +62,6 @@ const CoursesSlice = createSlice({
     .addCase(fetchAllCoursesbyInstructor.rejected, (state, action) => {
       state.loading = false
       console.log(action.error)
-    })
-    .addCase(createCourseThunk.fulfilled, (state, action) => {
-      state.instructorCourses = [...state.instructorCourses, ...action.payload]
     })
   }
 })

@@ -9,7 +9,7 @@ import { DARKPURPLE, LIGHTPURPLE } from '../styles/Color'
 import { FaTrash } from 'react-icons/fa'
 import Button from './Partials/Button'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { createCourseThunk, uploadVideos } from '../features/Courses/CourseApi'
+import { createCourseThunk, updateCourseThunk, uploadVideos } from '../features/Courses/CourseApi'
 
 interface Props {
   isOpen : boolean
@@ -18,6 +18,7 @@ interface Props {
 }
 
 export interface FormInputT {
+  _id? :string
   title : string
   description : string
   technologie : string
@@ -49,7 +50,14 @@ const CustomizedModal = ({isOpen, course, formType} : Props) => {
   }
 
   const onSubmit : SubmitHandler<FormInputT> = (data) => {
-    if (formType === "ADD") dispatch(createCourseThunk(data));
+    if (formType === "ADD") {
+      dispatch(createCourseThunk(data))
+      dispatch(closeModal());
+    } else {
+      const payload : FormInputT = {_id : course._id, ...data} 
+      dispatch(updateCourseThunk(payload));
+      dispatch(closeModal());
+    }
   }
 
   useEffect(() => {
