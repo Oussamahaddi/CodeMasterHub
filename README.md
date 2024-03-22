@@ -1,10 +1,10 @@
 # CodeMastersHub
 
-CodeMastersHub is a web platform designed for online programming courses and workshops. It provides a convenient way for users to access high-quality educational content, ranging from beginner to advanced levels, in various programming languages.
+CodeMastersHub is a web platform designed for online programming courses. It provides a convenient way for users to access high-quality educational content, ranging from beginner to advanced levels, in various programming languages.
 
 ## Description
 
-    CodeMastersHub offers a user-friendly interface for instructors to create, manage, and publish courses. Users can explore a wide range of courses, subscribe to premium memberships. The platform aims to facilitate learning and skill development in programming through engaging and practical content.
+CodeMastersHub offers a user-friendly interface for instructors to create, manage, and publish courses. Users can explore a wide range of courses, subscribe to premium memberships. The platform aims to facilitate learning and skill development in programming through engaging and practical content.
 
 ## Technologies Used
 
