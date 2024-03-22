@@ -54,7 +54,7 @@ const BasicTable = () => {
               <tbody className="">
                 {
                   instructorCourses && instructorCourses?.map((course) => (
-                    <tr onDoubleClick={() => handleSelectPlaylit(course)} key={course._id} className="border-b border-[#a7abb2] hover:bg-[#e9e9e9]">
+                    <tr onDoubleClick={() => handleSelectPlaylit(course)} key={course._id} className="border-b border-[#dedddd] hover:bg-[#e9e9e9]">
                       <td className="px-6 py-4 font-medium whitespace-nowrap flex items-center mx-w-[300px]">
                         <ReactPlayer url={course.videos[0]} width={'120px'} height={'70px'} className="w-20 aspect-square object-contain" />
                         <div className="ps-3">

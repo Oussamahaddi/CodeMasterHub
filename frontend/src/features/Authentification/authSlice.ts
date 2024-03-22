@@ -35,6 +35,7 @@ const authSlice = createSlice({
     },
     checkUserRole : (state, actions : PayloadAction<UserResponseT>) => {
       state.logged = true;
+      state.user = actions.payload
       switch (actions.payload.user.role) {
         case "instructor":
           state.checkRole = "instructor"

@@ -3,6 +3,8 @@ import { DARKPURPLE } from "../../styles/Color";
 import { CgPlayList } from "react-icons/cg";
 import { useAppDispatch } from "../../hook";
 import { logout } from "../../features/Authentification/authSlice";
+import PathConstant from "../../routes/PathConstant";
+import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
 
@@ -11,7 +13,9 @@ const SideBar = () => {
   return (
     <div className={`w-64 bg-white rounded-lg text-black font-semibold h-5/6 p-4 flex flex-col justify-between items-center shadow-[0_0_5px] shadow-black/30`}>
       <div className='flex flex-col gap-4 w-full items-center'>
-        <img src="/assets/logo.png" alt="" className='w-24 my-4'/>
+        <NavLink to={PathConstant.HOME}>
+          <img src="/assets/logo.png" alt="" className='w-24 my-4'/>
+        </NavLink>
         <hr className='w-full ' />
         <div className='flex flex-col gap-4 w-full'>
           <div className={`cursor-pointer p-2 rounded flex items-center gap-2 hover:bg-[${DARKPURPLE}] hover:text-white`}>

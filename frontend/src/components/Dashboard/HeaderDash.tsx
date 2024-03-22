@@ -1,9 +1,6 @@
-import React, { useEffect } from 'react'
 import { UserResponseT } from '../../types/Types';
 
-const HeaderDash = () => {
-
-  const user : UserResponseT = JSON.parse(localStorage.getItem("user")!);
+const HeaderDash = ({user} : {user : UserResponseT}) => {
 
   return (
     <div className='flex  justify-between items-center w-full text-white mb-5 p-4'>

@@ -133,7 +133,7 @@ const CustomizedModal = ({isOpen, course, formType} : Props) => {
                     <label htmlFor="playlistImg" className='text-gray-600 font-semibold'>Videos</label>
                     <label className="block">
                       <span className="sr-only">Videos</span>
-                      <input onChange={(e) => dispatch(uploadVideos(e.target.files!)).unwrap().then((v) => setVideo(prev => [...prev, ...v]))} multiple id='playlistImg' type="file" className="block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#B873FF] file:text-white hover:file:bg-[#FC72FF] " />
+                      <input required={formType === "ADD"} onChange={(e) => dispatch(uploadVideos(e.target.files!)).unwrap().then((v) => setVideo(prev => [...prev, ...v]))} multiple id='playlistImg' type="file" className="block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[#B873FF] file:text-white hover:file:bg-[#FC72FF] " />
                     </label>
                   </div>
                 </>
