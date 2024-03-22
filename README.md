@@ -4,15 +4,21 @@ CodeMastersHub is a web platform designed for online programming courses and wor
 
 ## Description
 
-CodeMastersHub offers a user-friendly interface for instructors to create, manage, and publish courses. Users can explore a wide range of courses, subscribe to premium memberships. The platform aims to facilitate learning and skill development in programming through engaging and practical content.
+    CodeMastersHub offers a user-friendly interface for instructors to create, manage, and publish courses. Users can explore a wide range of courses, subscribe to premium memberships. The platform aims to facilitate learning and skill development in programming through engaging and practical content.
 
 ## Technologies Used
 
-- **Frontend**: React.js
-- **Backend**: Express.js
-- **Database**: MongoDB with Mongoose
+- **Frontend**: [React.js](https://react.dev)
+- **Backend**: [Express.js](https://expressjs.com)
+- **Database**: [MongoDb]([https://react.dev](https://www.mongodb.com))
 
 ## Installation
+
+### Prerequisites
+
+-   [Node.js](https://nodejs.org/en/)
+
+### Steps
 
 To run the project locally, follow these steps:
 
