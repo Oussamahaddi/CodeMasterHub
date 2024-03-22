@@ -18,7 +18,7 @@ CodeMastersHub is a web platform designed for online programming courses. It pro
 
 To run the project locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/your-username/CodeMastersHub.git`
+1. Clone the repository: `git clone https://github.com/Oussamahaddi/CodeMastersHub.git`
 2. Navigate to the project directory: `cd CodeMastersHub`
 3. Install dependencies for frontend and backend:
 
