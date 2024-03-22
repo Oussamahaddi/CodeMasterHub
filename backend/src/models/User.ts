@@ -2,7 +2,6 @@ import mongoose, { Schema } from "mongoose";
 import { UserModelTypes } from "../types/Types";
 import bcrypt from "bcrypt"
 
-
 const UserSchema = new Schema<UserModelTypes>({
   fullName : {
     type : String,

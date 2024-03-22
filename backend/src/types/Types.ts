@@ -44,3 +44,11 @@ export interface CustomRequest extends Request {
 export interface DecodedToken extends JwtPayload {
   userId: Schema.Types.ObjectId
 };
+
+export type SubscriptionType = {
+  _id? : string
+  type : "monthly" | "yearly"
+  price : "39" | "390"
+  startDate : Date
+  endDate : Date
+}

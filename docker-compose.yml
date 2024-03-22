@@ -1,0 +1,22 @@
+version: '4'
+services:
+  backend:
+    image: backend
+    build: backend
+    ports:
+      - "5001:5000"
+    depends_on:
+      - DB
+  frontend:
+    image: frontend
+    build: frontend
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+  DB: 
+    image: mongo:latest
+    container_name: mongohost
+    command: mongod --port 27018
+    ports:
+      - "27018:27018"
