@@ -41,7 +41,17 @@ export type UserType = {
 
 export type UserResponseT = {
   user : UserType
+  subscription?: SubscriptionType
   token : string
+}
+
+export type SubscriptionType = {
+  _id? : string
+  type : "monthly" | "yearly"
+  price : "39" | "390"
+  startDate : Date
+  endDate : Date
+  user : string
 }
 
 // export type VideoT = {

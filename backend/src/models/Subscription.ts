@@ -10,7 +10,8 @@ const subscriptionSchem = new Schema<SubscriptionType>({
   },
   price : {
     type : String,
-    required : [true, "Price required"]
+    required : [true, "Price required"],
+    select: false,
   },
   startDate : {
     type : Date,
@@ -18,6 +19,11 @@ const subscriptionSchem = new Schema<SubscriptionType>({
   },
   endDate : {
     type : Date
+  },
+  user : {
+    type : Schema.Types.ObjectId,
+    ref : "User",
+    required : [true, "User Id is required"]
   }
 })
 

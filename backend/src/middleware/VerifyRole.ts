@@ -9,8 +9,7 @@ export const VerifyRole = (allowedRoles : "student" | "instructor" | "admin") =>
     const newToken = token!.split(" ")[1];
     const decoded = jwt.verify(newToken, process.env.JWT_SECRET!) as DecodedToken;
     if (decoded.role !== allowedRoles) {
-      res.status(401)
-      throw new Error("Not Allowed");
+      res.status(401).send("Not Allowed")
     }
     next();
   }

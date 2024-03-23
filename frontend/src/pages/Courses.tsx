@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react'
 import Course from '../components/Courses/Course'
-import { NavLink } from 'react-router-dom'
-import PathConstant from '../routes/PathConstant'
 import { useAppDispatch, useAppSelector } from '../hook'
 import { fetchAllCoursesThunk } from '../features/Courses/CourseApi'
 
 const Courses = () => {
 
-  const {AllCourses, loading} = useAppSelector(state => state.courses);
+  const {AllCourses} = useAppSelector(state => state.courses);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -27,9 +25,7 @@ const Courses = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 gap-10 justify-between'>
           {
             AllCourses && AllCourses.map((course) => (
-              <NavLink key={course._id} to={`${PathConstant.COURSES}/${course._id}`} state={{course}}>
-                <Course course={course} />
-              </NavLink>
+              <Course key={course._id} course={course} />
             ))
           }
         </div>

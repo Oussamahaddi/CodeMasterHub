@@ -5,6 +5,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from './Partials/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup'
+import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../hook';
+import { createSubsriptionThunk } from '../features/Subscription/subscriptionApi';
 
 interface PaymentInput {
   cardHolder : string
@@ -15,9 +18,10 @@ interface PaymentInput {
 
 type MethodType = "mastercard" | "visa" | "paypal"; 
 
-const PaymentInformation = () => {
+const PaymentInformation = ({duration} : {duration : string}) => {
 
   const [defaultMethod, setDefaultMethod] = useState<MethodType>('mastercard');
+  const dispatch = useAppDispatch();
 
   const authSchema = yup.object({
     cardHolder : yup.string().required(),
@@ -28,7 +32,6 @@ const PaymentInformation = () => {
 
   const {
     handleSubmit,
-    formState : {errors},
     register,
   } = useForm<PaymentInput>({
     resolver : yupResolver(authSchema)
@@ -46,10 +49,14 @@ const PaymentInformation = () => {
 
   const onSubmit : SubmitHandler<PaymentInput> = (data) => {
     console.log(data);
+    const payload = {
+      type : duration
+    }
+    dispatch(createSubsriptionThunk(payload))
   }
 
   return (
-    <div className="w-fit">
+    <div className="w-9/12">
       <div className={`${BACKGROUNDGRADIENT} rounded-lg p-4 ${DARKSHADOW}`}>
         <h3 className="text-white text-4xl font-semibold my-4">Payment Info.</h3>
         <hr className="my-4 border-gray-300" />
@@ -61,7 +68,7 @@ const PaymentInformation = () => {
                 key={method.id}
                 onClick={() => selectMethod(method.id as MethodType)}
                 className={`border border-gray-300 bg-white rounded-md px-2 cursor-pointer relative ${
-                  defaultMethod === method.id ? `after:content-[${<FaCheck />}] after:absolute after:right-0 after:top-0 after:translate-x-1/2 after:-translate-y-1/2 after:w-5 after:aspect-square after:bg-blue-600 after:rounded-full` : ''
+                  defaultMethod === method.id ? `after:content-[${<FaCheck />}] after:absolute after:right-0 after:top-0 after:translate-x-1/2 after:-translate-y-1/2 after:w-5 after:aspect-square after:bg-[#E985C1] after:rounded-full` : ''
                 }`}
                 title={method.id}
               >

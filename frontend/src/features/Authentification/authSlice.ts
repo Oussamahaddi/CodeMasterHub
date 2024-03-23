@@ -28,6 +28,7 @@ const authSlice = createSlice({
     },
     logout : (state, actions : PayloadAction) => {
       localStorage.removeItem("user");
+      localStorage.removeItem("subscription");
       state.logged = false;
     },
     switchForm : (state, actions : PayloadAction) => {
@@ -55,6 +56,7 @@ const authSlice = createSlice({
   extraReducers : (builder) => {
     builder.addCase(loginThunk.fulfilled, (state, action) => {
       localStorage.setItem("user", JSON.stringify(action.payload))
+      if (action.payload.subscription) {localStorage.setItem("subsription", JSON.stringify(action.payload.subscription))}
       state.logged = true
       switch (action.payload.user.role) {
         case "instructor":

@@ -41,11 +41,9 @@ const CoursesSlice = createSlice({
   },
   extraReducers : (builder) => {
     builder.addCase(fetchAllCoursesThunk.pending, (state, action) => {
-      console.log("pending")
       state.loading = true
     })
     .addCase(fetchAllCoursesThunk.fulfilled, (state, action) => {
-      console.log('fulfilled');
       state.loading = false
       state.AllCourses = action.payload
     })

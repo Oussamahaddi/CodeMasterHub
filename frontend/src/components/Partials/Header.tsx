@@ -30,10 +30,7 @@ const Header = () => {
   const handleLogout = () => {
     dispatch(logout())
     navigate("/")
-  }
-
-  console.log(logged, checkRole);
-  
+  }  
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user")!)

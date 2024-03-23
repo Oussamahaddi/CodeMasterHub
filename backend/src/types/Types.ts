@@ -51,4 +51,5 @@ export type SubscriptionType = {
   price : "39" | "390"
   startDate : Date
   endDate : Date
+  user : Schema.Types.ObjectId
 }

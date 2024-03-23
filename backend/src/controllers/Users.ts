@@ -1,9 +1,10 @@
 import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
-import { LoginType, RegisterType, UserModelTypes } from "../types/Types";
+import { LoginType, RegisterType, SubscriptionType, UserModelTypes } from "../types/Types";
 import { UserModel } from "../models/User";
 import { generateToken } from "../utils/generateToken";
 import bcrypt from "bcrypt";
+import { SubscriptionModel } from "../models/Subscription";
 
 export const login = asyncHandler(async (req : Request, res : Response) => {
   const {email, password} : LoginType = req.body
@@ -11,9 +12,10 @@ export const login = asyncHandler(async (req : Request, res : Response) => {
   if (!user) throw new Error("User Not Found!!");
   const comparePwd = await bcrypt.compare(password, user.password);
   if (!comparePwd) throw new Error("Password incorrect!!");
+  const subscription : SubscriptionType | null = await SubscriptionModel.findOne({user: user._id});
   const {password : pwd, ...useWithoutPassword} = user.toObject();
   const token = generateToken(user._id!, user.role);
-  res.status(201).json({user : useWithoutPassword, token});
+  res.status(201).json({user : useWithoutPassword, subscription, token});
 })
 
 export const register = asyncHandler(async (req : Request, res : Response) => {
