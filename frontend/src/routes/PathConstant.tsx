@@ -3,7 +3,7 @@ const PathConstant = {
   COURSES : '/courses',
   AUTH : "/auth",
   PRICING : '/pricing',
-  DASHBOARD : '/dashboard'
+  DASHBOARD : '/dashboard',
 }
 
 export default PathConstant;

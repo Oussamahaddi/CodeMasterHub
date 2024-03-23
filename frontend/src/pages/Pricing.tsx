@@ -11,7 +11,7 @@ const Pricing = () => {
           <p>200+ Courses, Learning Paths, & Mobile Apps for "On the Go" Learning</p>
         </div>
         <div className='flex gap-8 justify-center mt-20'>
-          <Price monthly={true}/>
+          <Price monthly/>
           <Price monthly={false} />
         </div>
       </div>

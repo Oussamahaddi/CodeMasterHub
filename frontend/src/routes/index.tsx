@@ -7,6 +7,7 @@ const Home = lazy(() => import("../pages/Home"))
 const Courses = lazy(() => import("../pages/Courses"))
 const Pricing = lazy(() => import("../pages/Pricing"))
 const CourseDetails = lazy(() => import("../pages/CourseDetails"))
+const Payment = lazy(() => import("../pages/Payment"))
 const PlayList = lazy(() => import("../pages/Playlist"))
 const Dashboard = lazy(() => import("../pages/Dashboard"))
 const Auth = lazy(() => import("../pages/Auth/Auth"))
@@ -39,7 +40,16 @@ const routes : RouteObject[] = [
   },
   {
     path : PathConstant.PRICING,
-    element : <Pricing />
+    children : [
+      {
+        path : "",
+        element : <Pricing />
+      },
+      {
+        path : "payment",
+        element : <Payment />
+      },
+    ],
   },
   {
     path : PathConstant.DASHBOARD,
