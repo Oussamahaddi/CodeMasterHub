@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 
 export const http = Axios.create({
   baseURL: "http://localhost:5000",
-  // baseURL: "http://localhost:5001",
   headers : {
     "Accept" : "accplication/json"
   }

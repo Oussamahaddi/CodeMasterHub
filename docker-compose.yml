@@ -4,14 +4,14 @@ services:
     image: backend
     build: backend
     ports:
-      - "5001:5000"
+      - "5000:5000"
     depends_on:
       - DB
   frontend:
     image: frontend
     build: frontend
     ports:
-      - "3001:3000"
+      - "3000:3000"
     depends_on:
       - backend
   DB: 
