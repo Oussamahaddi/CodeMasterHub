@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BACKGROUNDGRADIENT, DARKSHADOW } from '../styles/Color';
 import { FaCheck } from 'react-icons/fa';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from './Partials/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup'
-import { useAppDispatch } from '../hook';
+import { useAppDispatch, useAppSelector } from '../hook';
 import { createSubsriptionThunk } from '../features/Subscription/subscriptionApi';
 import { useNavigate } from 'react-router-dom';
 
@@ -27,6 +27,7 @@ const methods = [
 const PaymentInformation = ({duration} : {duration : string}) => {
 
   const [defaultMethod, setDefaultMethod] = useState<MethodType>('mastercard');
+  const {logged} = useAppSelector(state => state.authentification)
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -55,6 +56,10 @@ const PaymentInformation = ({duration} : {duration : string}) => {
     dispatch(createSubsriptionThunk(payload))
     navigate("/courses");
   }
+
+  useEffect(() => {
+    if (!logged) navigate("/auth")
+  }, [logged, navigate])
 
   return (
     <div className="w-9/12">

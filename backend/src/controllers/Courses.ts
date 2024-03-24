@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import { CourseType, CourseWithInstructorT, CustomRequest } from "../types/Types";
 import { CourseModel } from "../models/Course";
-import { allowedFile } from "../middleware/uploadFiles";
-
 
 export const getAllCourses = asyncHandler(async (req : CustomRequest, res : Response) => {
   const courses : CourseWithInstructorT[] = await CourseModel.find().populate("user");
