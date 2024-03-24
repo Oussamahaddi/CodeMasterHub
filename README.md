@@ -44,6 +44,11 @@ For testing the backend using Jest, follow these steps:
 3. Jest will execute the tests and provide feedback on the test results.
 4. Write additional tests as needed to ensure comprehensive test coverage for the backend functionalities.
 
+## Dockerization
+
+-   Ensure you have [Docker](https://www.docker.com/) installed
+-   run `docker compose up --build -d` to build the docker image
+
 ## Contributors
 
 - [Oussama HADDI](https://github.com/Oussamahaddi)
