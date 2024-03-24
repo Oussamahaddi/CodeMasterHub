@@ -27,19 +27,17 @@ const authSlice = createSlice({
     logout : (state, actions : PayloadAction) => {
       localStorage.removeItem("user");
       state.logged = false;
+      state.user = null
     },
     switchForm : (state, actions : PayloadAction) => {
       state.auth = !state.auth
     },
-    checkUserRole : (state, actions : PayloadAction<UserResponseT>) => {
-      state.logged = true;
-      state.user = actions.payload;
-    }
   },
   extraReducers : (builder) => {
     builder.addCase(loginThunk.fulfilled, (state, action) => {
       localStorage.setItem("user", JSON.stringify(action.payload))
       state.logged = true
+      state.user = action.payload
     }).addCase(loginThunk.rejected, (state, action) => {
       state.logged = false;
       console.log(action.error);
@@ -59,5 +57,5 @@ const authSlice = createSlice({
   }
 })
 
-export const { login, register, switchForm, logout, checkUserRole } = authSlice.actions
+export const { login, register, switchForm, logout } = authSlice.actions
 export default authSlice.reducer;

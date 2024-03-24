@@ -49,7 +49,6 @@ const PaymentInformation = ({duration} : {duration : string}) => {
   };
 
   const onSubmit : SubmitHandler<PaymentInput> = (data) => {
-    console.log(data);
     const payload = {
       type : duration
     }

@@ -7,7 +7,7 @@ import { addPlaylist } from "../features/Courses/CourseSlice";
 import { useAppDispatch, useAppSelector } from "../hook";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { checkUserRole } from "../features/Authentification/authSlice";
+import { fetchUserThunk } from "../features/Authentification/authApi";
 
 const Dashboard = () => {  
 
@@ -19,7 +19,7 @@ const Dashboard = () => {
     if (!user) {
       navigate("/")
     } else {
-      dispatch(checkUserRole(user))
+      dispatch(fetchUserThunk())
     }
   }, [dispatch, navigate, logged])
 

@@ -15,6 +15,8 @@ const CourseDetails = () => {
   const course : CoursesT = state.course
   const {user} = useAppSelector(state => state.authentification);
 
+  console.log(user?.subscription);
+
   return (
     <div className='w-full'>
       <div className='w-10/12 mx-auto my-14'>
