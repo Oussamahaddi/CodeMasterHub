@@ -53,10 +53,14 @@ const CustomizedModal = ({isOpen, course, formType} : Props) => {
     if (formType === "ADD") {
       dispatch(createCourseThunk(data))
       dispatch(closeModal());
+      reset()
+      setVideo([]);
     } else {
       const payload : FormInputT = {_id : course._id, ...data} 
       dispatch(updateCourseThunk(payload));
       dispatch(closeModal());
+      reset()
+      setVideo([]);
     }
   }
 

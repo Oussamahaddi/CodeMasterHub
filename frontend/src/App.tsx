@@ -10,6 +10,7 @@ import store from "./redux/Store";
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
+
   const router = createBrowserRouter([
     {
       path : PathConstant.HOME,

@@ -16,11 +16,10 @@ const Dashboard = () => {
   const {logged, user} = useAppSelector(state => state.authentification)
 
   useEffect(() => {
-    const user : string | null = localStorage.getItem("user")
     if (!user) {
       navigate("/")
     } else {
-      dispatch(checkUserRole(JSON.parse(user)))
+      dispatch(checkUserRole(user))
     }
   }, [dispatch, navigate, logged])
 

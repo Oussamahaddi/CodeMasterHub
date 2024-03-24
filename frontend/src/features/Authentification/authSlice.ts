@@ -1,19 +1,17 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { UserResponseT } from "../../types/Types";
-import { loginThunk, signUpThunk } from "./authApi";
+import { fetchUserThunk, loginThunk, signUpThunk } from "./authApi";
 
 interface InitialState {
   auth : boolean
   user : UserResponseT | null
   logged : boolean
-  checkRole : "student" | "instructor" | "admin"
 }
 
 const initialState : InitialState = {
   auth : false,
   user : null,
   logged : false,
-  checkRole : "student"
 }
 
 const authSlice = createSlice({
@@ -28,7 +26,6 @@ const authSlice = createSlice({
     },
     logout : (state, actions : PayloadAction) => {
       localStorage.removeItem("user");
-      localStorage.removeItem("subscription");
       state.logged = false;
     },
     switchForm : (state, actions : PayloadAction) => {
@@ -36,65 +33,28 @@ const authSlice = createSlice({
     },
     checkUserRole : (state, actions : PayloadAction<UserResponseT>) => {
       state.logged = true;
-      state.user = actions.payload
-      switch (actions.payload.user.role) {
-        case "instructor":
-          state.checkRole = "instructor"
-          break;
-        case "student":
-          state.checkRole = "student"
-          break;
-        case "admin":
-          state.checkRole = "admin"
-          break;
-        default:
-          state.checkRole = "student"
-          break;
-      }
+      state.user = actions.payload;
     }
   },
   extraReducers : (builder) => {
     builder.addCase(loginThunk.fulfilled, (state, action) => {
       localStorage.setItem("user", JSON.stringify(action.payload))
-      if (action.payload.subscription) {localStorage.setItem("subsription", JSON.stringify(action.payload.subscription))}
       state.logged = true
-      switch (action.payload.user.role) {
-        case "instructor":
-          state.checkRole = "instructor"
-          break;
-        case "student":
-          state.checkRole = "student"
-          break;
-        case "admin":
-          state.checkRole = "admin"
-          break;
-        default:
-          state.checkRole = "student"
-          break;
-      }
     }).addCase(loginThunk.rejected, (state, action) => {
       state.logged = false;
       console.log(action.error);
     }).addCase(signUpThunk.fulfilled, (state, action) => {
       localStorage.setItem("user", JSON.stringify(action.payload))
       state.logged = true
-      switch (action.payload.user.role) {
-        case "instructor":
-          state.checkRole = "instructor"
-          break;
-        case "student":
-          state.checkRole = "student"
-          break;
-        case "admin":
-          state.checkRole = "admin"
-          break;
-        default:
-          state.checkRole = "student"
-          break;
-      }
     }).addCase(signUpThunk.rejected, (state, action) => {
       state.logged = false
       console.log(action.error)
+    })
+    .addCase(fetchUserThunk.fulfilled, (state, action) => {
+      state.logged = true
+      const user : UserResponseT = JSON.parse(localStorage.getItem("user")!)
+      state.user = {...action.payload, token : user.token}
+      localStorage.setItem("user", JSON.stringify(state.user));
     })
   }
 })

@@ -5,9 +5,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Button from './Partials/Button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup'
-import { useDispatch } from 'react-redux';
 import { useAppDispatch } from '../hook';
 import { createSubsriptionThunk } from '../features/Subscription/subscriptionApi';
+import { useNavigate } from 'react-router-dom';
 
 interface PaymentInput {
   cardHolder : string
@@ -16,12 +16,19 @@ interface PaymentInput {
   cvv : string
 }
 
-type MethodType = "mastercard" | "visa" | "paypal"; 
+type MethodType = "mastercard" | "visa" | "paypal";
+
+const methods = [
+  { id: 'mastercard', img: '/assets/paymentMethods/mastercard.png' },
+  { id: 'visa', img: '/assets/paymentMethods/visa.png' },
+  { id: 'paypal', img: '/assets/paymentMethods/paypal.png' },
+];
 
 const PaymentInformation = ({duration} : {duration : string}) => {
 
   const [defaultMethod, setDefaultMethod] = useState<MethodType>('mastercard');
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const authSchema = yup.object({
     cardHolder : yup.string().required(),
@@ -37,12 +44,6 @@ const PaymentInformation = ({duration} : {duration : string}) => {
     resolver : yupResolver(authSchema)
   })
 
-  const methods = [
-    { id: 'mastercard', img: '/assets/paymentMethods/mastercard.png' },
-    { id: 'visa', img: '/assets/paymentMethods/visa.png' },
-    { id: 'paypal', img: '/assets/paymentMethods/paypal.png' },
-  ];
-
   const selectMethod = (method : MethodType) => {
     setDefaultMethod(method);
   };
@@ -53,6 +54,7 @@ const PaymentInformation = ({duration} : {duration : string}) => {
       type : duration
     }
     dispatch(createSubsriptionThunk(payload))
+    navigate("/courses");
   }
 
   return (

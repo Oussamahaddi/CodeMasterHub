@@ -6,12 +6,14 @@ import { FaRegPlayCircle } from "react-icons/fa";
 import { NavLink, useLocation } from 'react-router-dom';
 import PathConstant from '../routes/PathConstant';
 import { CoursesT } from '../types/Types';
+import { useAppSelector } from '../hook';
 
 
 const CourseDetails = () => {
 
   const {state} = useLocation();
   const course : CoursesT = state.course
+  const {user} = useAppSelector(state => state.authentification);
 
   return (
     <div className='w-full'>
@@ -46,7 +48,7 @@ const CourseDetails = () => {
             </p>
             <p className={`text-[#ccc]`}>Published : {course.createdAt.slice(0,10)}</p>
             {
-              true ?
+              user && user.subscription ?
               <NavLink to={`${PathConstant.COURSES}/${state.course._id}/playlist`} state={{playlist : course.videos}} className='flex items-center justify-center gap-4 rounded-full bg-black py-4 shadow-[0px_2px_5px_0px_rgba(255,255,255,.3)] text-white px-8 font-semibold hover:bg-gray-900 hover:text-white transition-all duration-100 ease-linear'>
                 <FaRegPlayCircle className='text-xl'/>
                 Start Course

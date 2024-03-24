@@ -1,7 +1,7 @@
 import InputCustomized from '../../components/Form/InputCustomized'
 import Button from '../../components/Partials/Button'
 import { FaCircleArrowRight } from "react-icons/fa6";
-import { LoginType, UserResponseT, RegisterType } from '../../types/Types';
+import { LoginType, RegisterType } from '../../types/Types';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from 'yup'
@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 
 const Login = () => {
 
-  const {auth} = useAppSelector(state => state.authentification)
+  const {auth, user} = useAppSelector(state => state.authentification)
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate()
@@ -42,19 +42,15 @@ const Login = () => {
     } else {
       dispatch(loginThunk(data as LoginType))
     }
-    const user : UserResponseT | null = JSON.parse(localStorage.getItem("user")!)
-    if (user && user.user.role === "instructor") navigate("/dashboard")
-    navigate("/")
+    user && user.user.role === "instructor" ? navigate("/dashboard") : navigate("/")
   };
 
   useEffect(() => {
-    const user : UserResponseT = JSON.parse(localStorage.getItem("user")!);
     if (user) {
       if (user.user.role === "instructor") navigate("/dashboard")
       else navigate("/")
     }
-  }, [navigate])
-  
+  }, [navigate, user])
 
   return (
     <>

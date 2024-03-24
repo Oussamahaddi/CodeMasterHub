@@ -24,7 +24,7 @@ const Header = () => {
 
   const location = useLocation();
   const dispatch = useAppDispatch();
-  const {logged, checkRole} = useAppSelector(state => state.authentification);
+  const {logged, user} = useAppSelector(state => state.authentification);
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -33,7 +33,6 @@ const Header = () => {
   }  
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user")!)
     if (user) dispatch(checkUserRole(user));
   }, [dispatch, logged])
 
@@ -55,7 +54,7 @@ const Header = () => {
               ))
             }
             {
-              logged && (checkRole === "instructor" &&
+              logged && (user?.user.role === "instructor" &&
               <NavLink to={PathConstant.DASHBOARD} className={({isActive}) => (isActive ? `border-b-4 border-[#FC72FF] transition-all duration-200 h-full flex items-center` : 'hover:border-b-4 hover:border-[#FC72FF] transition-all duration-200 h-full flex items-center')}>
                 <li>Dashboard</li>
               </NavLink>)

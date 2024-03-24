@@ -19,7 +19,7 @@ const Playlist = () => {
         <div className='w-72 overflow-y-scroll flex flex-col gap-1'>
           {
             (state.playlist as string[]).map((video, index) => (
-              <div onClick={() => setVideoUrl(video)} className='flex items-center gap-2 px-2 transition-all bg-[#eee] border-[#ccc] border duration-100 ease-linear hover:bg-[#B873FF] hover:text-white'>
+              <div key={index} onClick={() => setVideoUrl(video)} className='flex items-center gap-2 px-2 transition-all bg-[#eee] border-[#ccc] border duration-100 ease-linear hover:bg-[#B873FF] hover:text-white'>
                 <ReactPlayer key={index} url={video} width={100} height={80} pip/>
                 <p>Title of this video</p>
               </div>

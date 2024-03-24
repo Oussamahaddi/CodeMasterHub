@@ -31,6 +31,7 @@ const BasicTable = () => {
         {loading && <LoadingSpinner />}
         <div className="relative overflow-x-auto">
           {
+            instructorCourses.length > 0 ?
             <table className="w-full text-sm text-left">
               <thead className="text-xs uppercase text-[#555a61]">
                 <tr className="border-b border-[#a0a4ab]">
@@ -81,7 +82,8 @@ const BasicTable = () => {
                   ))
                 }
               </tbody>
-            </table>
+            </table> : 
+            <div className="p-4">No course Found, create your own course</div>
           }
         </div>
       </div>

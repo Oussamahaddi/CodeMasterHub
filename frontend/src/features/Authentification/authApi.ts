@@ -15,3 +15,8 @@ export const signUpThunk = createAsyncThunk("authentification/register", async (
   const {data} : {data : UserResponseT} = await http.post("/auth/register", payload);
   return data;
 })
+
+export const fetchUserThunk = createAsyncThunk("", async () => {
+  const {data} : {data : UserResponseT} = await http.get("/auth/");
+  return data;
+})

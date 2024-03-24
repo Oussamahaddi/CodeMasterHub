@@ -1,10 +1,18 @@
 import asyncHandler from "express-async-handler";
 import { Request, Response } from "express";
-import { LoginType, RegisterType, SubscriptionType, UserModelTypes } from "../types/Types";
+import { CustomRequest, LoginType, RegisterType, SubscriptionType, UserModelTypes } from "../types/Types";
 import { UserModel } from "../models/User";
 import { generateToken } from "../utils/generateToken";
 import bcrypt from "bcrypt";
 import { SubscriptionModel } from "../models/Subscription";
+
+export const getUser = asyncHandler(async (req : CustomRequest, res : Response) => {
+  const user = await UserModel.findById(req.userId);
+  if (!user) throw new Error("User Not Found!!");
+  const subscription : SubscriptionType | null = await SubscriptionModel.findOne({user: user._id});
+  const {password : pwd, ...useWithoutPassword} = user.toObject();
+  res.status(201).json({user : useWithoutPassword, subscription});
+})
 
 export const login = asyncHandler(async (req : Request, res : Response) => {
   const {email, password} : LoginType = req.body
